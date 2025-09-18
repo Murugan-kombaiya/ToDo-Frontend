@@ -15,21 +15,22 @@ function Header() {
     navigate('/login');
   };
   return (
-    <div style={{maxWidth:500, margin:'10px auto', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-      <div><Link to="/">Home</Link></div>
-      <div>
-        {username ? (
-          <>
-            <span style={{marginRight:10}}>Hello, {username}</span>
-            <button className="delete-btn" onClick={logout}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <span> · </span>
-            <Link to="/register">Register</Link>
-          </>
-        )}
+    <div className="navbar">
+      <div className="nav-inner">
+        <Link className="brand" to="/">📝 Todo</Link>
+        <div className="nav-actions">
+          {username ? (
+            <>
+              <span style={{marginRight:10}}>Hello, {username}</span>
+              <button className="btn btn-danger" onClick={logout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

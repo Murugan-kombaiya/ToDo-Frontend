@@ -30,16 +30,24 @@ export default function Login() {
   };
 
   return (
-    <div className="app-container">
-      <h2 className="title">Login</h2>
-      <form onSubmit={onSubmit} className="input-section" style={{flexDirection:'column'}}>
-        <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
-        {error ? <div style={{color:'#e74c3c'}}>{error}</div> : null}
-        <button type="submit" className="add-btn">Login</button>
-      </form>
-      <div style={{marginTop:10}}>
-        <Link to="/register">Register</Link> · <Link to="/forgot">Forgot Password</Link>
+    <div className="auth-wrap">
+      <div className="card auth-card">
+        <h2 className="title">Login</h2>
+        <form onSubmit={onSubmit} className="form">
+          <div className="form-group">
+            <label>Username</label>
+            <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
+          </div>
+          {error ? <div className="text-error">{error}</div> : null}
+          <button type="submit" className="btn btn-primary btn-block">Login</button>
+        </form>
+        <div style={{marginTop:10}}>
+          <Link to="/register">Register</Link> · <Link to="/forgot">Forgot Password</Link>
+        </div>
       </div>
     </div>
   );

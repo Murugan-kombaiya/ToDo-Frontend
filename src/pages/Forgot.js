@@ -27,16 +27,26 @@ export default function Forgot() {
   };
 
   return (
-    <div className="app-container">
-      <h2 className="title">Forgot Password</h2>
-      <form onSubmit={onSubmit} className="input-section" style={{flexDirection:'column'}}>
-        <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
-        <input placeholder="New Password" type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
-        {status ? <div style={{color: status.includes('updated') ? '#2ecc71' : '#e74c3c'}}>{status}</div> : null}
-        <button type="submit" className="add-btn">Reset</button>
-      </form>
-      <div style={{marginTop:10}}>
-        <Link to="/login">Back to Login</Link>
+    <div className="auth-wrap">
+      <div className="card auth-card">
+        <h2 className="title">Forgot Password</h2>
+        <form onSubmit={onSubmit} className="form">
+          <div className="form-group">
+            <label>Username</label>
+            <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>New Password</label>
+            <input placeholder="New Password" type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
+          </div>
+          {status ? (
+            <div className={status.includes('updated') ? 'text-success' : 'text-error'}>{status}</div>
+          ) : null}
+          <button type="submit" className="btn btn-primary btn-block">Reset</button>
+        </form>
+        <div style={{marginTop:10}}>
+          <Link to="/login">Back to Login</Link>
+        </div>
       </div>
     </div>
   );

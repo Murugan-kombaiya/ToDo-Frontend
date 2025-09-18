@@ -152,7 +152,7 @@ export default function Tasks() {
           <option value="high">High</option>
         </select>
         <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-        <button onClick={addTask} className="add-btn">Add</button>
+        <button onClick={addTask} className="btn btn-primary">Add</button>
       </div>
       <div className="controls">
         <input
@@ -185,8 +185,8 @@ export default function Tasks() {
           </select>
         </div>
         <div className="bulk-actions">
-          <button onClick={markAllDone} className="done-btn">Mark all done</button>
-          <button onClick={clearCompleted} className="delete-btn">Clear completed</button>
+          <button onClick={markAllDone} className="btn btn-success">Mark all done</button>
+          <button onClick={clearCompleted} className="btn btn-danger">Clear completed</button>
         </div>
       </div>
       <ul className="task-list">
@@ -237,14 +237,14 @@ export default function Tasks() {
             <div className="actions">
               {editingId === task.id ? (
                 <>
-                  <button onClick={() => saveEditing(task)} className="done-btn">Save</button>
-                  <button onClick={cancelEditing} className="delete-btn">Cancel</button>
+                  <button onClick={() => saveEditing(task)} className="btn btn-success">Save</button>
+                  <button onClick={cancelEditing} className="btn btn-outline">Cancel</button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => toggleStatus(task)} className="done-btn">✔</button>
-                  <button onClick={() => startEditing(task)} className="edit-btn">Edit</button>
-                  <button onClick={() => deleteTask(task.id)} className="delete-btn">✖</button>
+                  <button onClick={() => toggleStatus(task)} className="btn btn-success">✔</button>
+                  <button onClick={() => startEditing(task)} className="btn btn-outline">Edit</button>
+                  <button onClick={() => deleteTask(task.id)} className="btn btn-danger">✖</button>
                 </>
               )}
             </div>
