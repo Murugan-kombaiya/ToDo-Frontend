@@ -18,8 +18,7 @@ export default function Tasks() {
   const [priorityFilter, setPriorityFilter] = useState("all"); // all | low | medium | high
   const [categoryFilter, setCategoryFilter] = useState("all"); // all | office | own
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("id");
-  const [order, setOrder] = useState("asc");
+  // removed sort/order controls as per request
 
   const [editingId, setEditingId] = useState(null);
   const [editingTitle, setEditingTitle] = useState("");
@@ -34,14 +33,13 @@ export default function Tasks() {
     if (priorityFilter !== "all") params.set("priority", priorityFilter);
     if (categoryFilter !== "all") params.set("category", categoryFilter);
     if (search.trim()) params.set("q", search.trim());
-    params.set("sort", sort);
-    params.set("order", order);
+    // removed sort/order params to simplify filters
 
     fetch(`/tasks?${params.toString()}`, { headers: { ...authHeaders() } })
       .then(res => res.json())
       .then(data => setTasks(data))
       .catch(() => {/* noop */});
-  }, [filter, priorityFilter, categoryFilter, search, sort, order]);
+  }, [filter, priorityFilter, categoryFilter, search]);
 
   const addTask = () => {
     if (!title.trim()) return;
@@ -178,33 +176,20 @@ export default function Tasks() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tasks..."
         />
-        <div className="filters">
-          <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All</button>
-          <button className={filter === "pending" ? "active" : ""} onClick={() => setFilter("pending")}>Active</button>
-          <button className={filter === "done" ? "active" : ""} onClick={() => setFilter("done")}>Done</button>
-          <select className="form-select" value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
+        <div className="filters d-flex flex-column gap-2">
+          <button className={`btn ${filter === "all" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("all")}>All</button>
+          <button className={`btn ${filter === "pending" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("pending")}>Active</button>
+          <button className={`btn ${filter === "done" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("done")}>Done</button>
+          <select className="form-select w-100" value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
             <option value="all">All priorities</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-          <select className="form-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+          <select className="form-select w-100" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <option value="all">All categories</option>
             <option value="office">Office</option>
             <option value="own">Own</option>
-          </select>
-          <select className="form-select" value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="id">Sort: Created</option>
-            <option value="title">Title</option>
-            <option value="status">Status</option>
-            <option value="priority">Priority</option>
-            <option value="category">Category</option>
-            <option value="due_date">Due date</option>
-            <option value="updated_at">Updated</option>
-          </select>
-          <select className="form-select" value={order} onChange={(e) => setOrder(e.target.value)}>
-            <option value="asc">Asc</option>
-            <option value="desc">Desc</option>
           </select>
         </div>
         <div className="bulk-actions">
