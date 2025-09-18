@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 
 function authHeaders() {
   const token = localStorage.getItem('token');
@@ -41,7 +41,7 @@ export default function Board() {
       .catch(() => setProjects([]));
   };
 
-  const fetchTasks = () => {
+  const fetchTasks = useCallback(() => {
     setLoading(true);
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());
@@ -56,10 +56,17 @@ export default function Board() {
       .then(r => r.json())
       .then(d => { setTasks(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => setLoading(false));
-  };
+  }, [q, status, priority, category, projectId, importantOnly]);
 
   useEffect(() => { fetchProjects(); }, []);
-  useEffect(() => { fetchTasks(); }, [q, status, priority, category, projectId, importantOnly]);
+  useEffect(() => { fetchTasks(); }, [fetchTasks]);
+
+  // Listen to realtime refresh events
+  useEffect(() => {
+    const handler = () => fetchTasks();
+    window.addEventListener('tasks:refresh', handler);
+    return () => window.removeEventListener('tasks:refresh', handler);
+  }, [fetchTasks]);
 
   const grouped = useMemo(() => {
     const map = new Map(STATUSES.map(s => [s.key, []]));
@@ -144,28 +151,28 @@ export default function Board() {
         <div className="row">
           <div className="form-group" style={{minWidth:180}}>
             <label>Project</label>
-            <select value={projectId} onChange={e=>setProjectId(e.target.value)}>
+            <select className="select-adv" value={projectId} onChange={e=>setProjectId(e.target.value)}>
               <option value="all">All Projects</option>
               {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
           </div>
           <div className="form-group" style={{minWidth:180}}>
             <label>Status</label>
-            <select value={status} onChange={e=>setStatus(e.target.value)}>
+            <select className="select-adv" value={status} onChange={e=>setStatus(e.target.value)}>
               <option value="all">All Statuses</option>
               {STATUSES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
             </select>
           </div>
           <div className="form-group" style={{minWidth:160}}>
             <label>Priority</label>
-            <select value={priority} onChange={e=>setPriority(e.target.value)}>
+            <select className="select-adv" value={priority} onChange={e=>setPriority(e.target.value)}>
               <option value="all">All Priorities</option>
               {PRIORITIES.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
           </div>
           <div className="form-group" style={{minWidth:160}}>
             <label>Category</label>
-            <select value={category} onChange={e=>setCategory(e.target.value)}>
+            <select className="select-adv" value={category} onChange={e=>setCategory(e.target.value)}>
               <option value="all">All Categories</option>
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -269,25 +276,25 @@ export default function Board() {
               <div className="row">
                 <div className="form-group" style={{minWidth:160}}>
                   <label>Status</label>
-                  <select value={ctStatus} onChange={e=>setCtStatus(e.target.value)}>
+                  <select className="select-adv" value={ctStatus} onChange={e=>setCtStatus(e.target.value)}>
                     {STATUSES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
                   </select>
                 </div>
                 <div className="form-group" style={{minWidth:140}}>
                   <label>Priority</label>
-                  <select value={ctPriority} onChange={e=>setCtPriority(e.target.value)}>
+                  <select className="select-adv" value={ctPriority} onChange={e=>setCtPriority(e.target.value)}>
                     {PRIORITIES.map(p => <option key={p} value={p}>{p}</option>)}
                   </select>
                 </div>
                 <div className="form-group" style={{minWidth:140}}>
                   <label>Category</label>
-                  <select value={ctCategory} onChange={e=>setCtCategory(e.target.value)}>
+                  <select className="select-adv" value={ctCategory} onChange={e=>setCtCategory(e.target.value)}>
                     {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div className="form-group" style={{minWidth:160}}>
                   <label>Project</label>
-                  <select value={ctProject} onChange={e=>setCtProject(e.target.value)}>
+                  <select className="select-adv" value={ctProject} onChange={e=>setCtProject(e.target.value)}>
                     <option value="all">None</option>
                     {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                   </select>

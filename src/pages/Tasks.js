@@ -8,6 +8,8 @@ function authHeaders() {
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("medium");
@@ -17,6 +19,7 @@ export default function Tasks() {
   const [filter, setFilter] = useState("all"); // all | pending | done
   const [priorityFilter, setPriorityFilter] = useState("all"); // all | low | medium | high
   const [categoryFilter, setCategoryFilter] = useState("all"); // all | office | own
+  const [projectId, setProjectId] = useState('all'); // all | <projectId>
   const [search, setSearch] = useState("");
   // removed sort/order controls as per request
 
@@ -32,14 +35,24 @@ export default function Tasks() {
     if (filter !== "all") params.set("status", filter === "done" ? "done" : "pending");
     if (priorityFilter !== "all") params.set("priority", priorityFilter);
     if (categoryFilter !== "all") params.set("category", categoryFilter);
+    if (projectId !== 'all') params.set('project_id', String(projectId));
     if (search.trim()) params.set("q", search.trim());
     // removed sort/order params to simplify filters
 
+    setLoading(true);
     fetch(`/tasks?${params.toString()}`, { headers: { ...authHeaders() } })
       .then(res => res.json())
-      .then(data => setTasks(data))
-      .catch(() => {/* noop */});
-  }, [filter, priorityFilter, categoryFilter, search]);
+      .then(data => { setTasks(Array.isArray(data) ? data : []); setLoading(false); })
+      .catch(() => { setLoading(false); });
+  }, [filter, priorityFilter, categoryFilter, projectId, search]);
+
+  // Fetch projects for the Projects filter
+  useEffect(() => {
+    fetch('/projects', { headers: { ...authHeaders() } })
+      .then(r => r.json())
+      .then(d => setProjects(Array.isArray(d) ? d : []))
+      .catch(() => setProjects([]));
+  }, []);
 
   const addTask = () => {
     if (!title.trim()) return;
@@ -144,29 +157,37 @@ export default function Tasks() {
       <h2 className="title">📝 Todo App</h2>
       <div className="card" style={{padding:12}}>
         <div className="input-section">
-          <input 
-            className="form-control"
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
-            placeholder="Enter new task..." 
-          />
-          <input 
-            className="form-control"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description (optional)"
-          />
-          <select className="form-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="own">Own</option>
-            <option value="office">Office</option>
-          </select>
-          <input className="form-control" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-          <button onClick={addTask} className="btn btn-primary"><i className="bi bi-plus-lg me-1"></i>Add</button>
+          <div className="form-control-enhanced with-icon">
+            <i className="input-icon bi bi-card-text" />
+            <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder=" " />
+            <label>Task title</label>
+          </div>
+          <div className="form-control-enhanced with-icon">
+            <i className="input-icon bi bi-text-left" />
+            <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder=" " />
+            <label>Description (optional)</label>
+          </div>
+          <div className="form-group">
+            <label>Priority</label>
+            <select className="select-adv" value={priority} onChange={(e) => setPriority(e.target.value)}>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Category</label>
+            <select className="select-adv" value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option value="own">Own</option>
+              <option value="office">Office</option>
+            </select>
+          </div>
+          <div className="form-control-enhanced with-icon">
+            <i className="input-icon bi bi-calendar3" />
+            <input className="form-control" type="date" placeholder=" " value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+            <label>Due date</label>
+          </div>
+          <button onClick={addTask} className="btn btn-gradient-success ripple"><i className="bi bi-plus-lg me-1"></i>Add</button>
         </div>
       </div>
       <div className="card controls">
@@ -176,20 +197,28 @@ export default function Tasks() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tasks..."
         />
-        <div className="filters d-flex flex-column gap-2">
-          <button className={`btn ${filter === "all" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("all")}>All</button>
-          <button className={`btn ${filter === "pending" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("pending")}>Active</button>
-          <button className={`btn ${filter === "done" ? "btn-primary" : "btn-outline"} w-100`} onClick={() => setFilter("done")}>Done</button>
-          <select className="form-select w-100" value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
-            <option value="all">All priorities</option>
+        <div className="filters">
+          <div className="btn-group" role="group" aria-label="Status filters">
+            <button className={`btn ${filter === "all" ? "btn-primary" : "btn-outline"}`} onClick={() => setFilter("all")}>All Statuses</button>
+            <button className={`btn ${filter === "pending" ? "btn-primary" : "btn-outline"}`} onClick={() => setFilter("pending")}>Active</button>
+            <button className={`btn ${filter === "done" ? "btn-primary" : "btn-outline"}`} onClick={() => setFilter("done")}>Done</button>
+          </div>
+          <select className="select-adv" value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)} title="Priorities">
+            <option value="all">All Priorities</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-          <select className="form-select w-100" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-            <option value="all">All categories</option>
+          <select className="select-adv" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} title="Categories">
+            <option value="all">All Categories</option>
             <option value="office">Office</option>
             <option value="own">Own</option>
+          </select>
+          <select className="select-adv" value={projectId} onChange={(e) => setProjectId(e.target.value)} title="Projects">
+            <option value="all">All Projects</option>
+            {projects.map(p => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
           </select>
         </div>
         <div className="bulk-actions">
@@ -199,8 +228,16 @@ export default function Tasks() {
       </div>
       <div className="card task-list-wrap">
         <ul className="task-list">
-          {tasks.map(task => (
-            <li key={task.id} className="task-item">
+          {loading ? (
+            Array.from({ length: 4 }).map((_, i) => (
+              <li key={i} className="task-item task-card-enhanced">
+                <div className="skeleton skeleton-title" style={{width:'40%'}} />
+                <div className="skeleton skeleton-text" style={{width:'70%'}} />
+                <div className="skeleton" style={{height:6, borderRadius:999, width:'60%'}} />
+              </li>
+            ))
+          ) : tasks.map(task => (
+            <li key={task.id} className={`task-item task-card-enhanced hover-lift ${task.priority ? 'priority-' + task.priority : ''}`}>
               <div className="task-main">
                 {editingId === task.id ? (
                   <div className="edit-form">
@@ -221,12 +258,12 @@ export default function Tasks() {
                       onChange={(e) => setEditingDescription(e.target.value)}
                       placeholder="Description"
                     />
-                    <select className="form-select" value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)}>
+                    <select className="select-adv" value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)}>
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
                     </select>
-                    <select className="form-select" value={editingCategory} onChange={(e) => setEditingCategory(e.target.value)}>
+                    <select className="select-adv" value={editingCategory} onChange={(e) => setEditingCategory(e.target.value)}>
                       <option value="own">Own</option>
                       <option value="office">Office</option>
                     </select>
@@ -239,6 +276,7 @@ export default function Tasks() {
                     title="Double-click to edit"
                   >
                     <div className="task-title">
+                      <span className={`status-indicator ${task.status === 'done' ? 'done' : 'todo'}`} />
                       {task.title}
                       {task.priority ? <span className={`pill ${task.priority}`}>{task.priority}</span> : null}
                       {task.category ? <span className={`pill ${task.category}`}>{task.category}</span> : null}

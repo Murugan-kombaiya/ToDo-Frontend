@@ -84,60 +84,112 @@ export default function Dashboard() {
         <a href="#quick-add" className="btn btn-primary">+ Quick Add</a>
       </div>
 
-      <form id="quick-add" className="quick-add card" onSubmit={addQuickTask}>
+      <form id="quick-add" className="quick-add card hover-lift" onSubmit={addQuickTask}>
         <div className="row">
-          <input placeholder="Task title" value={title} onChange={e=>setTitle(e.target.value)} />
-          <select value={priority} onChange={e=>setPriority(e.target.value)}>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <select value={type} onChange={e=>setType(e.target.value)}>
-            <option value="work">Work</option>
-            <option value="learning">Learning</option>
-          </select>
-          <input type="date" value={dueDate} onChange={e=>setDueDate(e.target.value)} />
-          <input type="time" value={dueTime} onChange={e=>setDueTime(e.target.value)} />
-          <button type="submit" className="btn btn-success">Add</button>
+          <div className="form-control-enhanced with-icon" style={{minWidth:200}}>
+            <i className="input-icon bi bi-card-text" />
+            <input placeholder=" " value={title} onChange={e=>setTitle(e.target.value)} />
+            <label>Task title</label>
+          </div>
+          <div className="form-group" style={{minWidth:140}}>
+            <label>Priority</label>
+            <select className="select-adv" value={priority} onChange={e=>setPriority(e.target.value)}>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div className="form-group" style={{minWidth:140}}>
+            <label>Type</label>
+            <select className="select-adv" value={type} onChange={e=>setType(e.target.value)}>
+              <option value="work">Work</option>
+              <option value="learning">Learning</option>
+            </select>
+          </div>
+          <div className="form-control-enhanced with-icon" style={{minWidth:160}}>
+            <i className="input-icon bi bi-calendar3" />
+            <input type="date" placeholder=" " value={dueDate} onChange={e=>setDueDate(e.target.value)} />
+            <label>Due date</label>
+          </div>
+          <div className="form-control-enhanced with-icon" style={{minWidth:140}}>
+            <i className="input-icon bi bi-clock" />
+            <input type="time" placeholder=" " value={dueTime} onChange={e=>setDueTime(e.target.value)} />
+            <label>Due time</label>
+          </div>
+          <button type="submit" className="btn btn-gradient-success ripple">
+            <i className="bi bi-plus-lg me-1" /> Add
+          </button>
         </div>
       </form>
 
       {loading ? (
-        <div>Loading...</div>
+        <>
+          <div className="stats-grid">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="stat card widget stat-card-pattern">
+                <div className="skeleton skeleton-title" style={{width:'50%'}} />
+                <div className="skeleton" style={{height:32, borderRadius:8, width:'40%', margin:'8px 0'}} />
+                <div className="skeleton skeleton-text" style={{width:'60%'}} />
+                <div className="skeleton" style={{height:6, borderRadius:999, marginTop:8}} />
+              </div>
+            ))}
+          </div>
+          <div className="boards">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="board card hover-lift">
+                <div className="skeleton skeleton-title" style={{width:'30%'}} />
+                <ul className="board-list">
+                  {Array.from({ length: 3 }).map((_, j) => (
+                    <li key={j} className="board-item">
+                      <div className="skeleton skeleton-text" style={{width:'70%', marginBottom:8}} />
+                      <div className="skeleton" style={{height:12, borderRadius:6, width:'50%'}} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </>
       ) : error ? (
         <div className="text-error">{error}</div>
       ) : data ? (
         <>
           <div className="stats-grid">
-            <div className="stat card">
+            <div className="stat card widget stat-card-pattern hover-lift">
               <div className="stat-title">Today Tasks</div>
-              <div className="stat-value">{data.tasksToday.total}</div>
-              <div className="stat-sub">{data.tasksToday.done} done / {data.tasksToday.pending} pending</div>
+              <div className="stat-value widget-value">{data.tasksToday.total}</div>
+              <div className="stat-sub widget-label">{data.tasksToday.done} done / {data.tasksToday.pending} pending</div>
               <div className="progress"><div className="bar" style={{width: `${data.tasksToday.goalPercent}%`}} /></div>
+              <i className="ti ti-checklist widget-icon"></i>
             </div>
-            <div className="stat card">
+            <div className="stat card widget hover-lift">
               <div className="stat-title">Projects (Office)</div>
-              <div className="stat-value">{data.projects.office}</div>
+              <div className="stat-value widget-value">{data.projects.office}</div>
+              <i className="ti ti-briefcase widget-icon"></i>
             </div>
-            <div className="stat card">
+            <div className="stat card widget hover-lift">
               <div className="stat-title">Projects (Personal)</div>
-              <div className="stat-value">{data.projects.personal}</div>
+              <div className="stat-value widget-value">{data.projects.personal}</div>
+              <i className="ti ti-user widget-icon"></i>
             </div>
-            <div className="stat card">
+            <div className="stat card widget hover-lift">
               <div className="stat-title">Overdue</div>
-              <div className="stat-value" style={{color:'#e11d48'}}>{data.overdue}</div>
+              <div className="stat-value widget-value" style={{color:'#e11d48'}}>{data.overdue}</div>
+              <i className="ti ti-alert-circle widget-icon"></i>
             </div>
-            <div className="stat card">
+            <div className="stat card widget hover-lift">
               <div className="stat-title">Hours (Work)</div>
-              <div className="stat-value">{(data.time.workMinutes/60).toFixed(1)} h</div>
+              <div className="stat-value widget-value">{(data.time.workMinutes/60).toFixed(1)} h</div>
+              <i className="ti ti-clock-hour-9 widget-icon"></i>
             </div>
-            <div className="stat card">
+            <div className="stat card widget hover-lift">
               <div className="stat-title">Hours (Learning)</div>
-              <div className="stat-value">{(data.time.learningMinutes/60).toFixed(1)} h</div>
+              <div className="stat-value widget-value">{(data.time.learningMinutes/60).toFixed(1)} h</div>
+              <i className="ti ti-book widget-icon"></i>
             </div>
           </div>
 
-          <form className="hours card" onSubmit={submitHours}>
+          <form className="hours card hover-lift" onSubmit={submitHours}>
             <div className="hours-title">Quick Log Hours (Today)</div>
             <div className="row">
               <div className="form-group" style={{minWidth:120}}>

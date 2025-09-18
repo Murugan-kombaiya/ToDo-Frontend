@@ -8,6 +8,10 @@ import Forgot from "./pages/Forgot";
 import Dashboard from "./pages/Dashboard";
 import Board from "./pages/Board";
 import Sidebar from "./components/Sidebar";
+import RouteChangeLoader from "./components/RouteChangeLoader.jsx";
+import RealtimeEvents from "./components/RealtimeEvents.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Header() {
   const username = localStorage.getItem('username');
@@ -71,6 +75,12 @@ function ProtectedRoute({ children }) {
 export default function App() {
   return (
     <>
+      {/* Global 1s loader on route changes */}
+      <RouteChangeLoader minDurationMs={1000} />
+      {/* Global toast container for notifications */}
+      <ToastContainer position="top-right" autoClose={4000} theme={localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'} newestOnTop/>
+      {/* Real-time socket listeners */}
+      <RealtimeEvents />
       <Header />
       <div className="layout">
         <Sidebar />
