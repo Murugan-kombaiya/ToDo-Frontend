@@ -5,10 +5,29 @@ import Tasks from "./pages/Tasks";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Forgot from "./pages/Forgot";
+import Dashboard from "./pages/Dashboard";
+import Board from "./pages/Board";
+import Sidebar from "./components/Sidebar";
 
 function Header() {
   const username = localStorage.getItem('username');
   const navigate = useNavigate();
+  const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'light');
+
+  React.useEffect(() => {
+    if (theme === 'dark') document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Cleanup any previous fullwidth preference and class
+  React.useEffect(() => {
+    document.body.classList.remove('fullwidth');
+    document.body.classList.remove('compact');
+    try { localStorage.removeItem('fullwidth'); } catch (_) {}
+    try { localStorage.removeItem('density'); } catch (_) {}
+  }, []);
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -18,7 +37,14 @@ function Header() {
     <div className="navbar">
       <div className="nav-inner">
         <Link className="brand" to="/">📝 Todo</Link>
+        <div className="muted" style={{marginLeft:10}}>{new Date().toLocaleDateString(undefined,{weekday:'short', month:'short', day:'numeric'})}</div>
         <div className="nav-actions">
+          <Link to="/board" style={{marginRight:10}}>Kanban</Link>
+          <Link to="/tasks" style={{marginRight:10}}>List</Link>
+          <button className="btn btn-outline" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} style={{marginRight:10}}>
+            {theme === 'dark' ? 'Light' : 'Dark'} mode
+          </button>
+          <a href="/#quick-add" className="btn btn-primary" style={{marginRight:10}}>+ Quick Add</a>
           {username ? (
             <>
               <span style={{marginRight:10}}>Hello, {username}</span>
@@ -46,13 +72,20 @@ export default function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div className="layout">
+        <Sidebar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
+            <Route path="/board" element={<ProtectedRoute><Board /></ProtectedRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot" element={<Forgot />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+      </div>
     </>
   );
 }

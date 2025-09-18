@@ -12,9 +12,11 @@ export default function Tasks() {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("medium");
   const [dueDate, setDueDate] = useState("");
+  const [category, setCategory] = useState("own");
 
   const [filter, setFilter] = useState("all"); // all | pending | done
   const [priorityFilter, setPriorityFilter] = useState("all"); // all | low | medium | high
+  const [categoryFilter, setCategoryFilter] = useState("all"); // all | office | own
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("id");
   const [order, setOrder] = useState("asc");
@@ -24,11 +26,13 @@ export default function Tasks() {
   const [editingDescription, setEditingDescription] = useState("");
   const [editingPriority, setEditingPriority] = useState("medium");
   const [editingDueDate, setEditingDueDate] = useState("");
+  const [editingCategory, setEditingCategory] = useState("own");
 
   useEffect(() => {
     const params = new URLSearchParams();
     if (filter !== "all") params.set("status", filter === "done" ? "done" : "pending");
     if (priorityFilter !== "all") params.set("priority", priorityFilter);
+    if (categoryFilter !== "all") params.set("category", categoryFilter);
     if (search.trim()) params.set("q", search.trim());
     params.set("sort", sort);
     params.set("order", order);
@@ -37,14 +41,14 @@ export default function Tasks() {
       .then(res => res.json())
       .then(data => setTasks(data))
       .catch(() => {/* noop */});
-  }, [filter, priorityFilter, search, sort, order]);
+  }, [filter, priorityFilter, categoryFilter, search, sort, order]);
 
   const addTask = () => {
     if (!title.trim()) return;
     fetch("/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeaders() },
-      body: JSON.stringify({ title, description, priority, due_date: dueDate || null }),
+      body: JSON.stringify({ title, description, priority, category, due_date: dueDate || null }),
     })
       .then(res => res.json())
       .then(newTask => {
@@ -53,6 +57,7 @@ export default function Tasks() {
         setDescription("");
         setPriority("medium");
         setDueDate("");
+        setCategory("own");
       })
       .catch(() => {/* noop */});
   };
@@ -83,6 +88,7 @@ export default function Tasks() {
     setEditingDescription(task.description || "");
     setEditingPriority(task.priority || "medium");
     setEditingDueDate(task.due_date ? task.due_date.slice(0,10) : "");
+    setEditingCategory(task.category || "own");
   };
 
   const saveEditing = (task) => {
@@ -96,6 +102,7 @@ export default function Tasks() {
       title: newTitle,
       description: editingDescription,
       priority: editingPriority,
+      category: editingCategory,
       due_date: editingDueDate || null,
     });
     setEditingId(null);
@@ -103,6 +110,7 @@ export default function Tasks() {
     setEditingDescription("");
     setEditingPriority("medium");
     setEditingDueDate("");
+    setEditingCategory("own");
   };
 
   const cancelEditing = () => {
@@ -111,6 +119,7 @@ export default function Tasks() {
     setEditingDescription("");
     setEditingPriority("medium");
     setEditingDueDate("");
+    setEditingCategory("own");
   };
 
   const toggleStatus = (task) => {
@@ -133,30 +142,38 @@ export default function Tasks() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container task-page">
       <h2 className="title">📝 Todo App</h2>
-      <div className="input-section">
-        <input 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
-          placeholder="Enter new task..." 
-        />
-        <input 
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description (optional)"
-        />
-        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-        <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-        <button onClick={addTask} className="btn btn-primary">Add</button>
+      <div className="card" style={{padding:12}}>
+        <div className="input-section">
+          <input 
+            className="form-control"
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)} 
+            placeholder="Enter new task..." 
+          />
+          <input 
+            className="form-control"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Description (optional)"
+          />
+          <select className="form-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="own">Own</option>
+            <option value="office">Office</option>
+          </select>
+          <input className="form-control" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+          <button onClick={addTask} className="btn btn-primary"><i className="bi bi-plus-lg me-1"></i>Add</button>
+        </div>
       </div>
-      <div className="controls">
+      <div className="card controls">
         <input
-          className="search-input"
+          className="search-input form-control"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tasks..."
@@ -165,92 +182,105 @@ export default function Tasks() {
           <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>All</button>
           <button className={filter === "pending" ? "active" : ""} onClick={() => setFilter("pending")}>Active</button>
           <button className={filter === "done" ? "active" : ""} onClick={() => setFilter("done")}>Done</button>
-          <select value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
+          <select className="form-select" value={priorityFilter} onChange={(e) => setPriorityFilter(e.target.value)}>
             <option value="all">All priorities</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <select className="form-select" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            <option value="all">All categories</option>
+            <option value="office">Office</option>
+            <option value="own">Own</option>
+          </select>
+          <select className="form-select" value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="id">Sort: Created</option>
             <option value="title">Title</option>
             <option value="status">Status</option>
             <option value="priority">Priority</option>
+            <option value="category">Category</option>
             <option value="due_date">Due date</option>
             <option value="updated_at">Updated</option>
           </select>
-          <select value={order} onChange={(e) => setOrder(e.target.value)}>
+          <select className="form-select" value={order} onChange={(e) => setOrder(e.target.value)}>
             <option value="asc">Asc</option>
             <option value="desc">Desc</option>
           </select>
         </div>
         <div className="bulk-actions">
-          <button onClick={markAllDone} className="btn btn-success">Mark all done</button>
-          <button onClick={clearCompleted} className="btn btn-danger">Clear completed</button>
+          <button onClick={markAllDone} className="btn btn-success"><i className="bi bi-check2-all me-1"></i>Mark all done</button>
+          <button onClick={clearCompleted} className="btn btn-danger"><i className="bi bi-trash3 me-1"></i>Clear completed</button>
         </div>
       </div>
-      <ul className="task-list">
-        {tasks.map(task => (
-          <li key={task.id} className="task-item">
-            <div className="task-main">
-              {editingId === task.id ? (
-                <div className="edit-form">
-                  <input
-                    className="edit-input"
-                    value={editingTitle}
-                    onChange={(e) => setEditingTitle(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') saveEditing(task);
-                      if (e.key === 'Escape') cancelEditing();
-                    }}
-                    autoFocus
-                    placeholder="Title"
-                  />
-                  <input
-                    className="edit-input"
-                    value={editingDescription}
-                    onChange={(e) => setEditingDescription(e.target.value)}
-                    placeholder="Description"
-                  />
-                  <select value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)}>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                  </select>
-                  <input type="date" value={editingDueDate} onChange={(e) => setEditingDueDate(e.target.value)} />
-                </div>
-              ) : (
-                <div
-                  className={`task-text ${task.status === "done" ? "task-done" : ""}`}
-                  onDoubleClick={() => startEditing(task)}
-                  title="Double-click to edit"
-                >
-                  <div className="task-title">
-                    {task.title}
-                    {task.priority ? <span className={`pill ${task.priority}`}>{task.priority}</span> : null}
-                    {task.due_date ? <span className={`due ${new Date(task.due_date) < new Date() && task.status !== 'done' ? 'overdue' : ''}`}>Due: {new Date(task.due_date).toLocaleDateString()}</span> : null}
+      <div className="card task-list-wrap">
+        <ul className="task-list">
+          {tasks.map(task => (
+            <li key={task.id} className="task-item">
+              <div className="task-main">
+                {editingId === task.id ? (
+                  <div className="edit-form">
+                    <input
+                      className="edit-input form-control"
+                      value={editingTitle}
+                      onChange={(e) => setEditingTitle(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') saveEditing(task);
+                        if (e.key === 'Escape') cancelEditing();
+                      }}
+                      autoFocus
+                      placeholder="Title"
+                    />
+                    <input
+                      className="edit-input form-control"
+                      value={editingDescription}
+                      onChange={(e) => setEditingDescription(e.target.value)}
+                      placeholder="Description"
+                    />
+                    <select className="form-select" value={editingPriority} onChange={(e) => setEditingPriority(e.target.value)}>
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                    <select className="form-select" value={editingCategory} onChange={(e) => setEditingCategory(e.target.value)}>
+                      <option value="own">Own</option>
+                      <option value="office">Office</option>
+                    </select>
+                    <input className="form-control" type="date" value={editingDueDate} onChange={(e) => setEditingDueDate(e.target.value)} />
                   </div>
-                  {task.description ? <div className="task-desc">{task.description}</div> : null}
-                </div>
-              )}
-            </div>
-            <div className="actions">
-              {editingId === task.id ? (
-                <>
-                  <button onClick={() => saveEditing(task)} className="btn btn-success">Save</button>
-                  <button onClick={cancelEditing} className="btn btn-outline">Cancel</button>
-                </>
-              ) : (
-                <>
-                  <button onClick={() => toggleStatus(task)} className="btn btn-success">✔</button>
-                  <button onClick={() => startEditing(task)} className="btn btn-outline">Edit</button>
-                  <button onClick={() => deleteTask(task.id)} className="btn btn-danger">✖</button>
-                </>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+                ) : (
+                  <div
+                    className={`task-text ${task.status === "done" ? "task-done" : ""}`}
+                    onDoubleClick={() => startEditing(task)}
+                    title="Double-click to edit"
+                  >
+                    <div className="task-title">
+                      {task.title}
+                      {task.priority ? <span className={`pill ${task.priority}`}>{task.priority}</span> : null}
+                      {task.category ? <span className={`pill ${task.category}`}>{task.category}</span> : null}
+                      {task.due_date ? <span className={`due ${new Date(task.due_date) < new Date() && task.status !== 'done' ? 'overdue' : ''}`}><i className="bi bi-clock me-1"></i>Due: {new Date(task.due_date).toLocaleDateString()}</span> : null}
+                    </div>
+                    {task.description ? <div className="task-desc">{task.description}</div> : null}
+                  </div>
+                )}
+              </div>
+              <div className="actions">
+                {editingId === task.id ? (
+                  <>
+                    <button onClick={() => saveEditing(task)} className="btn btn-success"><i className="bi bi-save me-1"></i>Save</button>
+                    <button onClick={cancelEditing} className="btn btn-outline"><i className="bi bi-x-circle me-1"></i>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => toggleStatus(task)} className="btn btn-success" title="Mark Done"><i className="bi bi-check2-circle"></i></button>
+                    <button onClick={() => startEditing(task)} className="btn btn-outline" title="Edit"><i className="bi bi-pencil"></i></button>
+                    <button onClick={() => deleteTask(task.id)} className="btn btn-danger" title="Delete"><i className="bi bi-trash"></i></button>
+                  </>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

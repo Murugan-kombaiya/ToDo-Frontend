@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register() {
   const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
@@ -11,6 +12,18 @@ export default function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    if (!username || username.length < 3) {
+      setError('Username must be at least 3 characters');
+      return;
+    }
+    if (!/^\d{10,15}$/.test(String(phone))) {
+      setError('Phone must be 10-15 digits');
+      return;
+    }
+    if (!password || password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
     if (password !== confirm) {
       setError('Passwords do not match');
       return;
@@ -19,7 +32,7 @@ export default function Register() {
       const res = await fetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, phone, password })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -42,6 +55,10 @@ export default function Register() {
           <div className="form-group">
             <label>Username</label>
             <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Phone</label>
+            <input placeholder="Phone (10-15 digits)" value={phone} onChange={e=>setPhone(e.target.value.replace(/[^0-9]/g,''))} />
           </div>
           <div className="form-group">
             <label>Password</label>
