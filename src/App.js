@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 import Tasks from "./pages/Tasks";
 import Login from "./pages/Login";
@@ -41,7 +41,9 @@ function Header() {
     <div className="navbar">
       <div className="nav-inner">
         <Link className="brand" to="/">📝 Todo</Link>
-        <div className="muted" style={{marginLeft:10}}>{new Date().toLocaleDateString(undefined,{weekday:'short', month:'short', day:'numeric'})}</div>
+        <div className="muted" style={{marginLeft:10}}>
+          {new Date().toLocaleDateString(undefined,{weekday:'short', month:'short', day:'numeric'})}
+        </div>
         <div className="nav-actions">
           <Link to="/board" style={{marginRight:10}}>Kanban</Link>
           <Link to="/tasks" style={{marginRight:10}}>List</Link>
@@ -68,11 +70,20 @@ function Header() {
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
-  if (!token) return <Navigate to="/login" replace />;
+  if (!token) return <Navigate to="/register" replace />;
+  return children;
+}
+
+function PublicRoute({ children }) {
+  const token = localStorage.getItem('token');
+  if (token) return <Navigate to="/" replace />;
   return children;
 }
 
 export default function App() {
+  const location = useLocation();
+  const isAuthPage = ['/login', '/register', '/forgot'].includes(location.pathname);
+
   return (
     <>
       {/* Global 1s loader on route changes */}
@@ -81,17 +92,19 @@ export default function App() {
       <ToastContainer position="top-right" autoClose={4000} theme={localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'} newestOnTop/>
       {/* Real-time socket listeners */}
       <RealtimeEvents />
-      <Header />
-      <div className="layout">
-        <Sidebar />
-        <main className="main-content">
+      
+      {!isAuthPage && <Header />}
+      
+      <div className={isAuthPage ? "auth-layout" : "layout"}>
+        {!isAuthPage && <Sidebar />}
+        <main className={isAuthPage ? "auth-main" : "main-content"}>
           <Routes>
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
             <Route path="/board" element={<ProtectedRoute><Board /></ProtectedRoute>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot" element={<Forgot />} />
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+            <Route path="/forgot" element={<PublicRoute><Forgot /></PublicRoute>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

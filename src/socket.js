@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
 // Determine backend URL (CRA proxy is used for HTTP, but Socket.IO needs explicit URL)
-const DEFAULT_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000';
+const DEFAULT_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 export const socket = io(DEFAULT_URL, {
   autoConnect: true,

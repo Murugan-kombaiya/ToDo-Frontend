@@ -32,21 +32,58 @@ export default function Login() {
   return (
     <div className="auth-wrap">
       <div className="card auth-card">
-        <h2 className="title">Login</h2>
+        <h2 className="title">Welcome Back!</h2>
+        <p className="subtitle">Login to continue to your dashboard</p>
         <form onSubmit={onSubmit} className="form">
           <div className="form-group">
-            <label>Username</label>
-            <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
+            <label><i className="bi bi-person"></i> Username</label>
+            <input 
+              placeholder="Enter your username" 
+              value={username} 
+              onChange={e=>setUsername(e.target.value)}
+              required
+              autoFocus
+            />
           </div>
           <div className="form-group">
-            <label>Password</label>
-            <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
+            <label><i className="bi bi-lock"></i> Password</label>
+            <input 
+              placeholder="Enter your password" 
+              type="password" 
+              value={password} 
+              onChange={e=>setPassword(e.target.value)}
+              required
+            />
           </div>
-          {error ? <div className="text-error">{error}</div> : null}
-          <button type="submit" className="btn btn-primary btn-block">Login</button>
+          
+          <div className="remember-me">
+            <input type="checkbox" id="remember" />
+            <label htmlFor="remember">Remember me</label>
+          </div>
+          
+          {error ? <div className="text-error"><i className="bi bi-exclamation-circle"></i> {error}</div> : null}
+          
+          <button type="submit" className="btn btn-primary btn-block">
+            <i className="bi bi-box-arrow-in-right"></i> Login
+          </button>
         </form>
-        <div style={{marginTop:10}}>
-          <Link to="/register">Register</Link> · <Link to="/forgot">Forgot Password</Link>
+        
+        <div className="divider">
+          <span>OR</span>
+        </div>
+        
+        <div className="social-login">
+          <button className="social-btn" disabled>
+            <i className="bi bi-google"></i> Google
+          </button>
+          <button className="social-btn" disabled>
+            <i className="bi bi-github"></i> GitHub
+          </button>
+        </div>
+        
+        <div className="auth-links">
+          <Link to="/register"><i className="bi bi-person-plus"></i> Create New Account</Link>
+          <Link to="/forgot"><i className="bi bi-key"></i> Forgot Password?</Link>
         </div>
       </div>
     </div>

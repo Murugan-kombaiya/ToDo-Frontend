@@ -39,9 +39,9 @@ export default function Register() {
         setError(data.error || 'Registration failed');
         return;
       }
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.user.username);
-      navigate('/');
+      // Don't auto-login, redirect to login page
+      alert('Registration successful! Please login.');
+      navigate('/login');
     } catch (_) {
       setError('Network error');
     }
@@ -51,28 +51,66 @@ export default function Register() {
     <div className="auth-wrap">
       <div className="card auth-card">
         <h2 className="title">Create Account</h2>
+        <p className="subtitle">Join us and start managing your tasks efficiently</p>
         <form onSubmit={onSubmit} className="form">
           <div className="form-group">
-            <label>Username</label>
-            <input placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)} />
+            <label><i className="bi bi-person"></i> Username</label>
+            <input 
+              placeholder="Enter your username" 
+              value={username} 
+              onChange={e=>setUsername(e.target.value)} 
+              required
+              autoFocus
+            />
           </div>
           <div className="form-group">
-            <label>Phone</label>
-            <input placeholder="Phone (10-15 digits)" value={phone} onChange={e=>setPhone(e.target.value.replace(/[^0-9]/g,''))} />
+            <label><i className="bi bi-phone"></i> Phone Number</label>
+            <input 
+              placeholder="Enter 10-15 digit phone number" 
+              value={phone} 
+              onChange={e=>setPhone(e.target.value.replace(/[^0-9]/g,''))} 
+              maxLength="15"
+              required
+            />
           </div>
           <div className="form-group">
-            <label>Password</label>
-            <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} />
+            <label><i className="bi bi-lock"></i> Password</label>
+            <input 
+              placeholder="Create a strong password" 
+              type="password" 
+              value={password} 
+              onChange={e=>setPassword(e.target.value)} 
+              required
+            />
+            {password && (
+              <div className={`password-strength ${
+                password.length < 6 ? 'weak' : 
+                password.length < 10 ? 'medium' : 'strong'
+              }`}></div>
+            )}
           </div>
           <div className="form-group">
-            <label>Confirm Password</label>
-            <input placeholder="Confirm Password" type="password" value={confirm} onChange={e=>setConfirm(e.target.value)} />
+            <label><i className="bi bi-lock-fill"></i> Confirm Password</label>
+            <input 
+              placeholder="Re-enter your password" 
+              type="password" 
+              value={confirm} 
+              onChange={e=>setConfirm(e.target.value)} 
+              required
+            />
           </div>
-          {error ? <div className="text-error">{error}</div> : null}
-          <button type="submit" className="btn btn-primary btn-block">Create account</button>
+          {error ? <div className="text-error"><i className="bi bi-exclamation-circle"></i> {error}</div> : null}
+          <button type="submit" className="btn btn-primary btn-block">
+            <i className="bi bi-person-plus"></i> Create Account
+          </button>
         </form>
-        <div style={{marginTop:10}}>
-          <Link to="/login">Back to Login</Link>
+        
+        <div className="divider">
+          <span>OR</span>
+        </div>
+        
+        <div className="auth-links">
+          <Link to="/login"><i className="bi bi-box-arrow-in-right"></i> Already have an account? Login</Link>
         </div>
       </div>
     </div>
