@@ -1,0 +1,485 @@
+/* Habit Tracker Styles */
+.habit-tracker-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.habit-tracker-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.habit-tracker-header .title {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.habit-tracker-header .subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.today-date {
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.habit-tracker-header .btn-primary {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.habit-tracker-content {
+  min-height: 400px;
+}
+
+.empty-habits {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.empty-habits i {
+  font-size: 4rem;
+  color: #bdc3c7;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.empty-habits h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.empty-habits p {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.empty-habits .btn-primary {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.habit-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e9ecef;
+}
+
+.habit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.habit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.habit-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.habit-actions .btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.habit-body {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.habit-title {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.habit-description {
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.habit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.habit-category,
+.habit-frequency,
+.habit-streak {
+  background: #f8f9fa;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.category-icon {
+  font-size: 0.8rem;
+}
+
+.habit-streak {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  font-weight: 600;
+}
+
+.habit-progress {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.progress-text {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.progress-percentage {
+  font-weight: 700;
+  color: #28a745;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.progress-controls {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.progress-controls .btn {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.progress-controls .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Color Picker */
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.active {
+  border-color: #333;
+  transform: scale(1.1);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.btn-close:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #43e97b;
+  box-shadow: 0 0 0 0.2rem rgba(67, 233, 123, 0.25);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.modal-footer .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border: none;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .habit-tracker-header .title {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .habit-tracker-header .subtitle,
+[data-theme="dark"] .today-date {
+  color: #bdc3c7;
+}
+
+[data-theme="dark"] .empty-habits {
+  background: #2c3e50;
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .empty-habits h3 {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .empty-habits p {
+  color: #95a5a6;
+}
+
+[data-theme="dark"] .habit-card {
+  background: #2c3e50;
+  border-color: #34495e;
+}
+
+[data-theme="dark"] .habit-title {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .habit-description {
+  color: #bdc3c7;
+}
+
+[data-theme="dark"] .habit-meta > * {
+  background: #34495e;
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .modal-content {
+  background: #2c3e50;
+}
+
+[data-theme="dark"] .modal-header h3 {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .btn-close {
+  color: #bdc3c7;
+}
+
+[data-theme="dark"] .btn-close:hover {
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .form-group label {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background: #34495e;
+  border-color: #495057;
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .modal-footer {
+  border-color: #34495e;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .habits-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .habit-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-controls {
+    flex-direction: column;
+  }
+
+  .progress-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .habit-tracker-header {
+    text-align: left;
+  }
+
+  .habit-tracker-header .btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .modal-content {
+    margin: 0.5rem;
+    max-height: calc(100vh - 1rem);
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .color-picker {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,313 @@
+/* Pomodoro Page specific layout */
+.pomodoro-page .app-container {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  border-radius: 0;
+  min-height: calc(100vh - 40px);
+}
+
+.pomodoro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) 0;
+  border-bottom: 2px solid var(--border);
+}
+
+.pomodoro-header .title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.pomodoro-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+/* Timer Section */
+.timer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-card {
+  padding: var(--space-lg);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.timer-type {
+  margin-bottom: var(--space-lg);
+}
+
+.work-badge, .break-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.work-badge {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-600) 100%);
+}
+
+.break-badge {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.timer-display {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto var(--space-lg);
+  position: relative;
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.timer-circle-bg {
+  stroke: var(--border);
+  fill: none;
+  stroke-width: 8;
+}
+
+.timer-circle-progress {
+  stroke: var(--brand);
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.timer-text {
+  font-size: 42px;
+  font-weight: 700;
+  fill: var(--text-primary);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.timer-controls {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.duration-options {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-md);
+}
+
+.duration-options h5 {
+  margin-bottom: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.duration-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.duration-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.duration-btn:hover {
+  border-color: var(--brand);
+  background: var(--surface-2);
+}
+
+.duration-btn.active {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+}
+
+.custom-duration {
+  display: flex;
+  gap: 8px;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* Tasks Section */
+.tasks-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks-card {
+  padding: var(--space-lg);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.task-filters {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.filter-btn:hover {
+  background: var(--surface-2);
+}
+
+.filter-btn.active {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+}
+
+.selected-task {
+  background: var(--surface-2);
+  border: 2px solid var(--brand);
+  border-radius: 12px;
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.selected-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.selected-task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-list-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 8px;
+}
+
+.pomodoro-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pomodoro-task-item {
+  padding: var(--space-sm);
+  background: var(--surface-2);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pomodoro-task-item:hover {
+  border-color: var(--brand);
+  background: var(--surface-1);
+}
+
+.pomodoro-task-item.selected {
+  border-color: var(--brand);
+  background: var(--surface-1);
+}
+
+/* Dark mode overrides for Pomodoro */
+[data-theme="dark"] .pomodoro-header,
+[data-theme="dark"] .tasks-header,
+[data-theme="dark"] .duration-options {
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .timer-card,
+[data-theme="dark"] .tasks-card {
+  background: var(--surface-1);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .timer-circle-bg {
+  stroke: var(--border);
+}
+
+[data-theme="dark"] .timer-text {
+  fill: var(--text-primary);
+}
+
+[data-theme="dark"] .duration-btn,
+[data-theme="dark"] .filter-btn {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .duration-btn:hover,
+[data-theme="dark"] .filter-btn:hover {
+  background: var(--surface-1);
+}
+
+[data-theme="dark"] .pomodoro-task-item {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .pomodoro-task-item:hover {
+  background: var(--surface-1);
+}
+
+[data-theme="dark"] .pomodoro-task-item.selected {
+  background: var(--surface-1);
+}
+
+[data-theme="dark"] .selected-task {
+  background: var(--surface-2);
+  border-color: var(--brand);
+}

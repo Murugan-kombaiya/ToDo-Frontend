@@ -7,9 +7,21 @@ if (typeof window !== 'undefined' && !window.__FETCH_WRAPPED__) {
   if (original) {
     window.__FETCH_WRAPPED__ = true;
     window.fetch = async (...args) => {
+      // Skip loader for certain URLs to prevent issues
+      const url = args[0];
+      const skipLoader = typeof url === 'string' && (
+        url.includes('/socket.io') || // Skip for socket.io polling
+        url.includes('hot-update') || // Skip for webpack hot reload
+        url.includes('webpack')       // Skip for webpack dev server
+      );
+      
+      if (skipLoader) {
+        return original(...args);
+      }
+      
       try {
         loaderStart();
-        const res = await original(...args);
+        const res = await original(...args);  
         return res;
       } catch (err) {
         throw err;

@@ -18,19 +18,22 @@ export default function Sidebar() {
         <Link className={`side-link ${isActive('/analytics') ? 'active' : ''}`} to="#">
           <i className="bi bi-graph-up me-2" /> Analytics
         </Link>
+        <div className="sidebar-group">PRODUCTIVITY</div>
+        <Link className={`side-link ${isActive('/pomodoro') ? 'active' : ''}`} to="/pomodoro">
+          <i className="bi bi-stopwatch me-2" /> Pomodoro Timer
+        </Link>
         <div className="sidebar-group">PROJECTS</div>
         <Link className={`side-link ${isActive('/board') ? 'active' : ''}`} to="/board">
           <i className="bi bi-kanban me-2" /> Kanban Board
         </Link>
-        <Link className={`side-link ${isActive('/tasks') ? 'active' : ''}`} to="/tasks">
-          <i className="bi bi-list-task me-2" /> Task List
+        <Link className={`side-link ${isActive('/timetracker') ? 'active' : ''}`} to="/timetracker">
+          <i className="bi bi-clock me-2" /> Time Tracker
         </Link>
-        <div className="sidebar-group">REPORTS</div>
-        <Link className={`side-link ${isActive('/time-logs') ? 'active' : ''}`} to="#">
-          <i className="bi bi-clock-history me-2" /> Time Logs
+        <Link className={`side-link ${isActive('/goals') ? 'active' : ''}`} to="/goals">
+          <i className="bi bi-bullseye me-2" /> Goals
         </Link>
-        <Link className={`side-link ${isActive('/leave') ? 'active' : ''}`} to="#">
-          <i className="bi bi-calendar3 me-2" /> Leave Calendar
+        <Link className={`side-link ${isActive('/habits') ? 'active' : ''}`} to="/habits">
+          <i className="bi bi-calendar-check me-2" /> Habits
         </Link>
       </nav>
     </aside>

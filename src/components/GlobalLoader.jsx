@@ -39,6 +39,19 @@ export default function GlobalLoaderProvider({ children, minDurationMs = 1000 })
       window.setTimeout(() => setVisible(false), remain);
     }
   }, [minDurationMs]);
+  
+  // Add safety timeout to prevent infinite loading
+  useEffect(() => {
+    if (visible) {
+      const safetyTimeout = setTimeout(() => {
+        console.warn('GlobalLoader: Safety timeout triggered after 10s');
+        activeCountRef.current = 0;
+        setVisible(false);
+      }, 10000); // 10 second safety timeout
+      
+      return () => clearTimeout(safetyTimeout);
+    }
+  }, [visible]);
 
   useEffect(() => {
     // Register start/stop with the bus so the global fetch interceptor can call them

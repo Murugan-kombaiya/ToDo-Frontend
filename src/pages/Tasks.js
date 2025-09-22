@@ -154,9 +154,14 @@ export default function Tasks() {
 
   return (
     <div className="app-container task-page">
-      <h2 className="title">📝 Todo App</h2>
+      <div className="task-header">
+        <h1 className="title">Task List</h1>
+        <button className="btn btn-primary add-task-btn" onClick={() => document.getElementById('add-task-form').scrollIntoView({ behavior: 'smooth' })}>
+          <i className="bi bi-plus-circle"></i> Add New Task
+        </button>
+      </div>
       <div className="card" style={{padding:12}}>
-        <div className="input-section">
+        <div id="add-task-form" className="input-section add-task-section">
           <div className="form-control-enhanced with-icon">
             <i className="input-icon bi bi-card-text" />
             <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder=" " />
@@ -187,7 +192,9 @@ export default function Tasks() {
             <input className="form-control" type="date" placeholder=" " value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
             <label>Due date</label>
           </div>
-          <button onClick={addTask} className="btn btn-gradient-success ripple"><i className="bi bi-plus-lg me-1"></i>Add</button>
+          <button className="add-btn" onClick={addTask}>
+            <i className="bi bi-plus-lg"></i> Add Task
+          </button>
         </div>
       </div>
       <div className="card controls">

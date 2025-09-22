@@ -1,0 +1,376 @@
+/* Time Tracker Styles */
+.time-tracker-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.time-tracker-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.time-tracker-header .title {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.time-tracker-header .subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.time-tracker-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Current Session Section */
+.tracker-section .card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.tracker-section .section-title {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.session-form {
+  margin-bottom: 1.5rem;
+}
+
+.session-form .form-select,
+.session-form .form-control {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.session-form .form-select:focus,
+.session-form .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.session-form .btn {
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.active-session {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.timer-display {
+  margin-bottom: 1rem;
+}
+
+.timer-value {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.timer-label {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.session-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.session-type {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.session-desc {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Statistics Section */
+.stats-section {
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e9ecef;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Session History */
+.history-section .section-title {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+  border: 2px solid #007bff;
+  margin: 0 -1px;
+  font-weight: 500;
+}
+
+.btn-group .btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.btn-group .btn:not(:last-child) {
+  border-right: none;
+}
+
+.session-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.no-sessions {
+  text-align: center;
+  padding: 3rem;
+  color: #7f8c8d;
+}
+
+.no-sessions i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.session-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s;
+}
+
+.session-item:hover {
+  background-color: #f8f9fa;
+}
+
+.session-item:last-child {
+  border-bottom: none;
+}
+
+.session-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.session-details {
+  flex: 1;
+}
+
+.session-description {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.session-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  flex-wrap: wrap;
+}
+
+.session-type {
+  background: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.session-duration {
+  font-weight: 700;
+  color: #28a745;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .time-tracker-header .title {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .time-tracker-header .subtitle {
+  color: #bdc3c7;
+}
+
+[data-theme="dark"] .section-title {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .stat-card {
+  background: #2c3e50;
+  border-color: #34495e;
+}
+
+[data-theme="dark"] .stat-value {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .stat-label {
+  color: #bdc3c7;
+}
+
+[data-theme="dark"] .session-description {
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .session-meta {
+  color: #95a5a6;
+}
+
+[data-theme="dark"] .session-type {
+  background: #34495e;
+  color: #ecf0f1;
+}
+
+[data-theme="dark"] .session-item {
+  border-color: #34495e;
+}
+
+[data-theme="dark"] .session-item:hover {
+  background-color: #34495e;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .time-tracker-content {
+    gap: 1.5rem;
+  }
+
+  .session-form .row > div {
+    margin-bottom: 1rem;
+  }
+
+  .stats-section .row > div {
+    margin-bottom: 1rem;
+  }
+
+  .timer-value {
+    font-size: 2.5rem;
+  }
+
+  .session-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .session-meta {
+    justify-content: center;
+  }
+
+  .session-duration {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .time-tracker-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .active-session {
+    padding: 1.5rem;
+  }
+
+  .timer-value {
+    font-size: 2rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group .btn {
+    border-radius: 6px;
+    margin: 2px 0;
+  }
+
+  .btn-group .btn:first-child,
+  .btn-group .btn:last-child {
+    border-radius: 6px;
+  }
+}

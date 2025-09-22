@@ -1,0 +1,164 @@
+/* Loading Spinner Styles */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.loading-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Spinner Sizes */
+.spinner-small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.spinner-medium {
+  width: 2rem;
+  height: 2rem;
+}
+
+.spinner-large {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Skeleton Loader Styles */
+.skeleton-container {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  display: block;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Task Skeleton Specific Styles */
+.task-skeleton {
+  margin-bottom: 1rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.task-skeleton .card-body {
+  padding: 1rem;
+}
+
+/* Error State Styles */
+.error-state {
+  padding: 3rem 1rem;
+}
+
+.error-icon {
+  margin-bottom: 1rem;
+}
+
+.error-title {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-actions .btn {
+  margin: 0 0.25rem;
+}
+
+/* Empty State Styles */
+.empty-state {
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-icon {
+  margin-bottom: 1.5rem;
+}
+
+.empty-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.empty-message {
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto 1.5rem auto;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .loading-fullscreen {
+  background-color: rgba(33, 37, 41, 0.9);
+}
+
+[data-theme="dark"] .skeleton-line {
+  background: linear-gradient(90deg, #2d3748 25%, #4a5568 50%, #2d3748 75%);
+  background-size: 200% 100%;
+}
+
+[data-theme="dark"] .loading-text {
+  color: #a0aec0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .loading-container {
+    padding: 1rem;
+  }
+
+  .error-state,
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .error-icon i,
+  .empty-icon i {
+    font-size: 3rem;
+  }
+}
