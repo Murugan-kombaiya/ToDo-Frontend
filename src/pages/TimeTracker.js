@@ -187,13 +187,46 @@ export default function TimeTracker() {
               </h3>
 
               <div className="session-form">
-                <div className="row g-3">
-                  <div className="col-md-4">
+                <div
+                  className="row g-3"
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                    margin: '0'
+                  }}
+                >
+                  <div
+                    className="col-md-4"
+                    style={{
+                      flex: '1 1 100%',
+                      minWidth: '0',
+                      maxWidth: '100%',
+                      width: '100%',
+                      marginBottom: '0.5rem'
+                    }}
+                  >
                     <select
                       className="form-select"
                       value={sessionType}
                       onChange={(e) => setSessionType(e.target.value)}
                       disabled={isTracking}
+                      style={{
+                        width: '100%',
+                        maxWidth: '100%',
+                        minHeight: '52px',
+                        padding: '1rem 2.5rem 1rem 1.25rem',
+                        fontSize: '1.1rem',
+                        borderRadius: '1rem',
+                        border: '2px solid #e5e7eb',
+                        background: '#ffffff',
+                        boxSizing: 'border-box',
+                        WebkitAppearance: 'none',
+                        MozAppearance: 'none',
+                        appearance: 'none',
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'transparent'
+                      }}
                     >
                       <option value="work">💼 Work</option>
                       <option value="study">📚 Study</option>
@@ -204,7 +237,16 @@ export default function TimeTracker() {
                     </select>
                   </div>
 
-                  <div className="col-md-6">
+                  <div
+                    className="col-md-6"
+                    style={{
+                      flex: '1 1 100%',
+                      minWidth: '0',
+                      maxWidth: '100%',
+                      width: '100%',
+                      marginBottom: '0.5rem'
+                    }}
+                  >
                     <input
                       type="text"
                       className="form-control"
@@ -212,15 +254,49 @@ export default function TimeTracker() {
                       value={sessionDescription}
                       onChange={(e) => setSessionDescription(e.target.value)}
                       disabled={isTracking}
+                      style={{
+                        width: '100%',
+                        maxWidth: '100%',
+                        minHeight: '52px',
+                        padding: '1rem 1.25rem',
+                        fontSize: '1.1rem',
+                        borderRadius: '1rem',
+                        border: '2px solid #e5e7eb',
+                        background: '#ffffff',
+                        boxSizing: 'border-box',
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'transparent'
+                      }}
                     />
                   </div>
 
-                  <div className="col-md-2">
+                  <div
+                    className="col-md-2"
+                    style={{
+                      flex: '1 1 100%',
+                      minWidth: '0',
+                      maxWidth: '100%',
+                      width: '100%',
+                      marginBottom: '0.5rem'
+                    }}
+                  >
                     {!isTracking ? (
                       <button
                         className="btn btn-success w-100"
                         onClick={startTracking}
                         disabled={!sessionDescription.trim()}
+                        style={{
+                          minHeight: '52px',
+                          width: '100%',
+                          padding: '1rem 1.25rem',
+                          fontSize: '1.1rem',
+                          borderRadius: '1rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          touchAction: 'manipulation',
+                          WebkitTapHighlightColor: 'transparent'
+                        }}
                       >
                         <i className="bi bi-play-fill me-2"></i>
                         Start
@@ -229,6 +305,18 @@ export default function TimeTracker() {
                       <button
                         className="btn btn-danger w-100"
                         onClick={stopTracking}
+                        style={{
+                          minHeight: '52px',
+                          width: '100%',
+                          padding: '1rem 1.25rem',
+                          fontSize: '1.1rem',
+                          borderRadius: '1rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          touchAction: 'manipulation',
+                          WebkitTapHighlightColor: 'transparent'
+                        }}
                       >
                         <i className="bi bi-stop-fill me-2"></i>
                         Stop
@@ -327,25 +415,26 @@ export default function TimeTracker() {
         <div className="history-section">
           <div className="card">
             <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h3 className="section-title mb-0">
+              <div className="history-header">
+                <h3 className="section-title">
                   <i className="bi bi-journal me-2"></i>
                   Session History
                 </h3>
 
-                <div className="btn-group">
+                <div className="history-filter-buttons">
                   {[
-                    { key: 'today', label: 'Today' },
-                    { key: 'week', label: 'Week' },
-                    { key: 'month', label: 'Month' },
-                    { key: 'all', label: 'All' }
-                  ].map(({ key, label }) => (
+                    { key: 'today', label: 'Today', icon: '📅' },
+                    { key: 'week', label: 'This Week', icon: '🗓️' },
+                    { key: 'month', label: 'This Month', icon: '📊' }
+                  ].map(({ key, label, icon }) => (
                     <button
                       key={key}
-                      className={`btn ${filter === key ? 'btn-primary' : 'btn-outline-primary'}`}
+                      className={`history-filter-btn ${filter === key ? 'active' : ''}`}
                       onClick={() => setFilter(key)}
+                      aria-label={`Filter sessions for ${label.toLowerCase()}`}
                     >
-                      {label}
+                      <span className="btn-icon">{icon}</span>
+                      <span className="btn-text">{label}</span>
                     </button>
                   ))}
                 </div>

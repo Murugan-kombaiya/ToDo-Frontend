@@ -1,0 +1,543 @@
+/* Notes Component Styles */
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.note-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  height: fit-content;
+}
+
+.note-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.note-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  gap: var(--space-3);
+}
+
+.note-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.note-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.note-content {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  white-space: pre-wrap;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.tag {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.tag-removable {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.tag-removable:hover {
+  background: var(--border-color);
+}
+
+.tag-remove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  padding: 0;
+  margin-left: var(--space-1);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.tag-remove:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.note-meta {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-color);
+}
+
+/* File upload styles */
+.file-upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--space-6);
+  text-align: center;
+  transition: var(--transition-fast);
+  margin-bottom: var(--space-4);
+}
+
+.file-upload-area:hover,
+.file-upload-area.drag-over {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.file-upload-input {
+  display: none;
+}
+
+.file-upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.file-upload-icon {
+  font-size: 2rem;
+  color: var(--text-muted);
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  background: var(--bg-tertiary);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.file-icon {
+  color: var(--primary);
+  font-size: var(--font-size-lg);
+}
+
+.file-details {
+  flex: 1;
+}
+
+.file-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.file-size {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.file-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .note-card {
+    padding: var(--space-4);
+  }
+
+  .note-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .note-actions {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-grid {
+    gap: var(--space-3);
+  }
+
+  .note-card {
+    padding: var(--space-3);
+  }
+
+  .note-title {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .tag {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary-light);
+}
+
+[data-theme="dark"] .tag-removable {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .file-upload-area:hover,
+[data-theme="dark"] .file-upload-area.drag-over {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+[data-theme="dark"] .file-item {
+  background: var(--bg-dark);
+  border-color: var(--border-color);
+}
+
+/* Enhanced Features for Note Cards */
+.note-title-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.note-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-top: 8px;
+}
+
+.note-category.learning {
+  background: rgba(6, 182, 212, 0.1);
+  color: #0891b2;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.note-category.working {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Attachment Previews in Note Cards */
+.note-attachments {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.attachment-preview {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  width: 50px;
+  height: 50px;
+  background: var(--bg-tertiary);
+  transition: transform 0.3s ease;
+}
+
+.attachment-preview:hover {
+  transform: scale(1.05);
+}
+
+.attachment-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.attachment-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.attachment-icon small {
+  font-size: 8px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.attachment-more {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Enhanced File Input Styles */
+.file-input-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-input-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 60px;
+  color: var(--text-muted);
+}
+
+.file-input-display:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--text-primary);
+}
+
+/* Attachment Previews in Modal */
+.attachment-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.preview-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  transition: all 0.3s ease;
+}
+
+.preview-item:hover {
+  transform: scale(1.02);
+  border-color: var(--primary);
+}
+
+.preview-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.preview-document {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 24px;
+  text-align: center;
+  padding: 8px;
+  color: var(--text-primary);
+}
+
+.preview-document small {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.preview-remove {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.preview-remove:hover {
+  transform: scale(1.1);
+  background: #dc2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Floating Action Button */
+.floating-create-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.floating-create-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(var(--primary-rgb), 0.5);
+}
+
+.floating-create-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .floating-create-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .note-actions {
+    opacity: 1;
+  }
+
+  .attachment-previews {
+    gap: 8px;
+  }
+
+  .preview-thumbnail,
+  .preview-document {
+    width: 60px;
+    height: 60px;
+  }
+
+  .preview-document {
+    font-size: 20px;
+    padding: 4px;
+  }
+
+  .attachment-preview {
+    width: 40px;
+    height: 40px;
+  }
+
+  .attachment-icon {
+    font-size: 14px;
+  }
+
+  .attachment-icon small {
+    font-size: 7px;
+  }
+
+  .attachment-more {
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-create-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .note-category {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+}
+
