@@ -1,0 +1,401 @@
+/* ==========================================
+   HEADER MICRO-INTERACTIONS & MOBILE ENHANCEMENTS
+   Advanced animations and touch optimizations
+========================================== */
+
+/* Enhanced Touch Feedback */
+@media (pointer: coarse) {
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern,
+  .user-profile.ultra-modern,
+  .sidebar-toggle.ultra-modern,
+  .hamburger-btn.ultra-modern {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .modern-btn.ultra-modern:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  .theme-toggle-btn.ultra-modern:active {
+    transform: scale(0.9) rotate(15deg);
+  }
+
+  .logo-icon.ultra-modern:active {
+    transform: scale(0.95) rotate(2deg);
+  }
+}
+
+/* Advanced Hover States */
+.logo-container.ultra-modern:hover .logo-text.ultra-modern {
+  animation: textGlow 0.5s ease-in-out;
+}
+
+.logo-container.ultra-modern:hover .logo-subtitle.ultra-modern {
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+/* Button Ripple Effect */
+.modern-btn.ultra-modern {
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-btn.ultra-modern::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.modern-btn.ultra-modern:active::after {
+  width: 100px;
+  height: 100px;
+}
+
+/* Theme Toggle Advanced Animation */
+.theme-toggle-btn.ultra-modern {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn.ultra-modern i {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  z-index: 2;
+}
+
+.theme-toggle-btn.ultra-modern:hover i {
+  transform: scale(1.2);
+}
+
+/* Dark mode theme toggle animation */
+[data-theme="dark"] .theme-toggle-btn.ultra-modern:hover {
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+}
+
+[data-theme="light"] .theme-toggle-btn.ultra-modern:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* User Avatar Status Indicator Animation */
+.user-status.ultra-modern {
+  position: relative;
+}
+
+.user-status.ultra-modern::before {
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+}
+
+/* Hamburger Menu Advanced Animation */
+.hamburger-btn.ultra-modern {
+  position: relative;
+}
+
+.hamburger-btn.ultra-modern .hamburger-line.ultra-modern {
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.hamburger-btn.ultra-modern:hover .hamburger-line.ultra-modern:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.hamburger-btn.ultra-modern:hover .hamburger-line.ultra-modern:nth-child(3) {
+  transform: translateY(1px);
+}
+
+.hamburger-btn.ultra-modern.active .hamburger-line.ultra-modern:nth-child(1) {
+  animation: lineRotateTop 0.4s ease forwards;
+}
+
+.hamburger-btn.ultra-modern.active .hamburger-line.ultra-modern:nth-child(2) {
+  animation: lineDisappear 0.2s ease forwards;
+}
+
+.hamburger-btn.ultra-modern.active .hamburger-line.ultra-modern:nth-child(3) {
+  animation: lineRotateBottom 0.4s ease forwards;
+}
+
+@keyframes lineRotateTop {
+  0% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(6px) rotate(0); }
+  100% { transform: translateY(6px) rotate(45deg); }
+}
+
+@keyframes lineDisappear {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+@keyframes lineRotateBottom {
+  0% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-6px) rotate(0); }
+  100% { transform: translateY(-6px) rotate(-45deg); }
+}
+
+/* Advanced Text Glow Animation */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+  }
+}
+
+/* Sidebar Toggle Interaction */
+.sidebar-toggle.ultra-modern:hover {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.sidebar-toggle.ultra-modern:hover i {
+  animation: toggleBounce 0.6s ease;
+}
+
+@keyframes toggleBounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1) rotate(5deg); }
+  50% { transform: scale(1.2) rotate(-5deg); }
+  75% { transform: scale(1.1) rotate(3deg); }
+}
+
+/* Enhanced Mobile Interactions */
+@media (max-width: 768px) {
+  /* Improved touch targets */
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern,
+  .sidebar-toggle.ultra-modern,
+  .hamburger-btn.ultra-modern {
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  /* Enhanced mobile animations */
+  .logo-icon.ultra-modern:active {
+    transform: scale(0.9);
+    transition: transform 0.1s ease;
+  }
+
+  .user-profile.ultra-modern:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Mobile-specific hover states */
+  .modern-btn.ultra-modern:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .theme-toggle-btn.ultra-modern:active {
+    transform: scale(0.9);
+  }
+
+  /* Mobile header scroll behavior */
+  .modern-header.ultra-modern.scrolled {
+    backdrop-filter: blur(30px) saturate(300%);
+    -webkit-backdrop-filter: blur(30px) saturate(300%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Ultra Small Mobile Optimizations */
+@media (max-width: 480px) {
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern,
+  .sidebar-toggle.ultra-modern,
+  .hamburger-btn.ultra-modern {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Simplified animations for performance */
+  .logo-icon.ultra-modern:hover {
+    transform: scale(1.05);
+  }
+
+  .theme-toggle-btn.ultra-modern:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Landscape Mode Adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modern-header.ultra-modern {
+    height: 55px;
+  }
+
+  .logo-icon.ultra-modern {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .logo-text.ultra-modern {
+    font-size: 1.2rem;
+  }
+
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern,
+  .logo-icon.ultra-modern,
+  .hamburger-line.ultra-modern {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hamburger-btn.ultra-modern .hamburger-line.ultra-modern {
+    transition: transform 0.1s ease;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern,
+  .user-profile.ultra-modern {
+    border: 2px solid;
+    font-weight: bold;
+  }
+
+  .logo-text.ultra-modern {
+    -webkit-text-fill-color: initial;
+    background: none;
+    color: var(--text-primary);
+    font-weight: 900;
+  }
+}
+
+/* Focus States for Keyboard Navigation */
+.modern-btn.ultra-modern:focus,
+.theme-toggle-btn.ultra-modern:focus,
+.sidebar-toggle.ultra-modern:focus,
+.hamburger-btn.ultra-modern:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.modern-brand.ultra-modern:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Performance Optimizations */
+.modern-header.ultra-modern * {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.modern-btn.ultra-modern,
+.theme-toggle-btn.ultra-modern,
+.logo-icon.ultra-modern {
+  will-change: transform, box-shadow;
+}
+
+/* Dark Theme Enhanced Interactions */
+[data-theme="dark"] .modern-btn.ultra-modern:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .user-profile.ultra-modern:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Loading State Animations */
+.modern-header.ultra-modern.loading {
+  animation: headerPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes headerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Success State Animation */
+.modern-header.ultra-modern.success {
+  animation: headerSuccess 0.6s ease-out;
+}
+
+@keyframes headerSuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Error State Animation */
+.modern-header.ultra-modern.error {
+  animation: headerShake 0.5s ease-in-out;
+}
+
+@keyframes headerShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Scroll-based Animations */
+.modern-header.ultra-modern.scrolled .logo-icon.ultra-modern {
+  transform: scale(0.9);
+}
+
+.modern-header.ultra-modern.scrolled .logo-text.ultra-modern {
+  font-size: 1.6rem;
+}
+
+.modern-header.ultra-modern.scrolled .user-avatar.ultra-modern {
+  transform: scale(0.9);
+}
+
+/* iOS Safari Specific Optimizations */
+@supports (-webkit-touch-callout: none) {
+  .modern-btn.ultra-modern,
+  .theme-toggle-btn.ultra-modern {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+
+  .modern-header.ultra-modern {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* Chrome/Edge Specific Optimizations */
+@supports (backdrop-filter: blur(1px)) {
+  .modern-header.ultra-modern {
+    backdrop-filter: blur(var(--blur-strength)) saturate(200%) brightness(1.1);
+  }
+}

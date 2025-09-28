@@ -1,0 +1,502 @@
+/* ==========================================
+   ENHANCED MOBILE RESPONSIVE DESIGN
+   Complete mobile optimization
+========================================== */
+
+/* Root Variables for Mobile */
+:root {
+  --mobile-header-height: 60px;
+  --mobile-sidebar-width: 280px;
+  --mobile-touch-target: 44px;
+  --mobile-padding: 1rem;
+  --mobile-gap: 0.75rem;
+}
+
+/* Global Mobile Adjustments */
+@media (max-width: 768px) {
+  /* Base Layout */
+  .layout {
+    margin-left: 0 !important;
+    padding-top: var(--mobile-header-height);
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    padding: var(--mobile-padding);
+    min-height: calc(100vh - var(--mobile-header-height));
+  }
+
+  /* Container Adjustments */
+  .container,
+  .content-container {
+    padding: 0 var(--mobile-padding);
+    max-width: 100%;
+  }
+
+  /* Card Components */
+  .card,
+  .widget,
+  .task-card,
+  .project-card {
+    margin-bottom: var(--mobile-gap);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  /* Grid Layouts */
+  .grid,
+  .dashboard-grid,
+  .analytics-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--mobile-gap);
+  }
+
+  .two-column,
+  .three-column,
+  .four-column {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Flex Layouts */
+  .flex-row {
+    flex-direction: column;
+    gap: var(--mobile-gap);
+  }
+
+  .flex-between {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Typography */
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.1rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.9rem; }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Buttons */
+  .btn,
+  .button,
+  button:not(.icon-only) {
+    min-height: var(--mobile-touch-target);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Forms */
+  .form-group,
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-control,
+  .input,
+  input,
+  textarea,
+  select {
+    min-height: var(--mobile-touch-target);
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-col {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* Tables */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+    white-space: nowrap;
+  }
+
+  /* Modals */
+  .modal {
+    padding: var(--mobile-padding);
+  }
+
+  .modal-dialog {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .modal-content {
+    border-radius: 12px;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  /* Dropdown Menus */
+  .dropdown-menu {
+    position: fixed !important;
+    top: auto !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: calc(100vw - 2rem) !important;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Tabs */
+  .nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-tabs .nav-link {
+    white-space: nowrap;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Cards and Widgets */
+  .dashboard-widget {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .widget-header {
+    margin-bottom: 1rem;
+  }
+
+  .widget-title {
+    font-size: 1.1rem;
+  }
+
+  /* Kanban Board */
+  .kanban-board {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .kanban-column {
+    min-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .kanban-card {
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  /* Analytics Charts */
+  .chart-container {
+    height: 250px !important;
+  }
+
+  .chart-wrapper {
+    padding: 1rem;
+  }
+
+  /* Task Lists */
+  .task-list {
+    padding: 0;
+  }
+
+  .task-item {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .task-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Calendar */
+  .calendar {
+    font-size: 0.8rem;
+  }
+
+  .calendar-day {
+    min-height: 40px;
+    padding: 0.25rem;
+  }
+
+  /* Progress Bars */
+  .progress {
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  /* Badges and Tags */
+  .badge,
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  /* Navigation Breadcrumbs */
+  .breadcrumb {
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+  }
+
+  .breadcrumb-item {
+    white-space: nowrap;
+  }
+
+  /* Search and Filters */
+  .search-bar {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .filter-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filter-item {
+    width: 100%;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    z-index: 1000;
+  }
+
+  .floating-action-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+  }
+
+  /* Lists */
+  .list-group-item {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Alerts and Notifications */
+  .alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .toast {
+    border-radius: 8px;
+    margin: 0.5rem;
+  }
+}
+
+/* Ultra Small Mobile (< 480px) */
+@media (max-width: 480px) {
+  :root {
+    --mobile-padding: 0.75rem;
+    --mobile-gap: 0.5rem;
+  }
+
+  .main-content {
+    padding: var(--mobile-padding);
+  }
+
+  .card,
+  .widget {
+    padding: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100vw - 1rem);
+  }
+
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.15rem; }
+
+  .chart-container {
+    height: 200px !important;
+  }
+
+  .floating-action-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Landscape Phone Orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .main-content {
+    padding: 0.75rem;
+  }
+
+  .modal-dialog {
+    max-height: calc(100vh - 1rem);
+  }
+
+  .chart-container {
+    height: 200px !important;
+  }
+}
+
+/* Touch Improvements */
+@media (pointer: coarse) {
+  /* Larger touch targets */
+  .btn,
+  .nav-link,
+  .dropdown-item,
+  .list-group-item {
+    min-height: var(--mobile-touch-target);
+  }
+
+  /* Remove hover states on touch devices */
+  .btn:hover,
+  .card:hover,
+  .nav-link:hover {
+    transform: none;
+  }
+
+  /* Better tap feedback */
+  .btn:active,
+  .nav-link:active,
+  .card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .card,
+  .widget,
+  .btn {
+    border: 2px solid;
+  }
+
+  .btn {
+    font-weight: bold;
+  }
+}
+
+/* Dark Theme Mobile Adjustments */
+[data-theme="dark"] {
+  @media (max-width: 768px) {
+    .main-content {
+      background: var(--bg-primary);
+    }
+
+    .card,
+    .widget {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .modal-content {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+    }
+  }
+}
+
+/* iOS Safari Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix iOS viewport issues */
+  .main-content {
+    min-height: -webkit-fill-available;
+  }
+
+  /* Fix iOS input zoom */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Fix iOS sticky elements */
+  .navbar {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+/* PWA Improvements */
+@media (display-mode: standalone) {
+  .main-content {
+    padding-top: calc(var(--mobile-header-height) + env(safe-area-inset-top));
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .floating-action-btn {
+    bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+}

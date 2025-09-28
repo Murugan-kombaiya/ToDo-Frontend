@@ -425,15 +425,7 @@ export default function PRManagement() {
       setTimeout(() => URL.revokeObjectURL(url), 100);
 
       // Enhanced success message with format-specific info
-      const frontendCount = prs.filter(pr => pr.frontend_link || pr.type === 'frontend').length;
-      const backendCount = prs.filter(pr => pr.backend_link || pr.type === 'backend').length;
 
-      let formatInfo = '';
-      if (format === 'csv') {
-        formatInfo = 'Optimized for Excel, Google Sheets, and other spreadsheet applications.';
-      } else if (format === 'html') {
-        formatInfo = 'Responsive HTML table with clickable links, perfect for sharing and printing.';
-      }
 
       toast.success(`Download Complete! ${filename} - ${prs.length} PRs downloaded`);
     } else {

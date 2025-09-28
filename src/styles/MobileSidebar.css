@@ -1,0 +1,219 @@
+/* ==========================================
+   MOBILE RESPONSIVE SIDEBAR
+   Enhanced mobile functionality
+========================================== */
+
+/* Base Sidebar Styling */
+.sidebar.mobile-responsive {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop View */
+@media (min-width: 769px) {
+  .sidebar.mobile-responsive {
+    position: fixed;
+    transform: translateX(0);
+    z-index: 900;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .sidebar.mobile-responsive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    transform: translateX(-100%);
+    z-index: 1100;
+    background: var(--bg-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .sidebar.mobile-responsive.open {
+    transform: translateX(0);
+  }
+
+  /* Sidebar Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Adjust main content for mobile */
+  .layout {
+    margin-left: 0 !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    padding-top: 80px; /* Account for fixed header */
+  }
+
+  /* Mobile sidebar styling adjustments */
+  .sidebar.mobile-responsive .sidebar-brand {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+  }
+
+  .sidebar.mobile-responsive .side-link {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .sidebar.mobile-responsive .side-link:hover {
+    background: var(--bg-secondary);
+  }
+
+  .sidebar.mobile-responsive .sidebar-group {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+  }
+
+  .sidebar.mobile-responsive .sidebar-group:first-of-type {
+    margin-top: 0;
+  }
+}
+
+/* Ultra small mobile devices */
+@media (max-width: 480px) {
+  .sidebar.mobile-responsive {
+    width: 260px;
+  }
+
+  .sidebar.mobile-responsive .side-link {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .sidebar.mobile-responsive .sidebar-group {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Dark theme mobile adjustments */
+[data-theme="dark"] .sidebar.mobile-responsive {
+  background: rgba(20, 20, 30, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .sidebar-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Animation improvements */
+.sidebar.mobile-responsive {
+  will-change: transform;
+}
+
+.sidebar.mobile-responsive.open {
+  animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Touch improvements for mobile */
+@media (max-width: 768px) {
+  .sidebar.mobile-responsive .side-link {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sidebar.mobile-responsive .side-link:active {
+    background: var(--bg-hover);
+    transform: scale(0.98);
+  }
+}
+
+/* Ensure proper scrolling on mobile sidebar */
+@media (max-width: 768px) {
+  .sidebar.mobile-responsive {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar.mobile-responsive::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .sidebar.mobile-responsive::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar.mobile-responsive::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 2px;
+  }
+}
+
+/* Layout adjustments for different screen sizes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar.mobile-responsive {
+    width: 240px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .sidebar.mobile-responsive {
+    width: 260px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar.mobile-responsive {
+    transition: none;
+  }
+
+  .sidebar.mobile-responsive.open {
+    animation: none;
+  }
+}
+
+/* Focus states for better accessibility */
+.sidebar.mobile-responsive .side-link:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .sidebar.mobile-responsive {
+    border: 2px solid;
+  }
+
+  .sidebar.mobile-responsive .side-link {
+    border: 1px solid transparent;
+  }
+
+  .sidebar.mobile-responsive .side-link:hover,
+  .sidebar.mobile-responsive .side-link:focus {
+    border-color: currentColor;
+  }
+}

@@ -5,6 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import './styles/CustomToast.css';
 import './styles/MobileResponsive.css';
 import './styles/DropdownFixes.css';
+import './styles/ModernHeader.css';
+import './styles/UltraModernHeader.css';
+import './styles/HeaderMicroInteractions.css';
+import './styles/MobileSidebar.css';
+import './styles/CleanSidebar.css';
+import './styles/EnhancedMobileResponsive.css';
 import RouteChangeLoader from './components/RouteChangeLoader';
 import RealtimeEvents from "./components/RealtimeEvents";
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
@@ -60,6 +66,15 @@ function ProtectedRoute({ children }) {
 
 function AppContent() {
   const { theme } = useTheme();
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
 
   return (
     <ErrorBoundary>
@@ -93,9 +108,9 @@ function AppContent() {
         {/* Main App Routes - With Header/Sidebar */}
         <Route path="/*" element={
           <>
-            <Header />
+            <Header onToggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
             <div className="layout">
-              <Sidebar />
+              <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
               <main className="main-content">
                 <Routes>
                   <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

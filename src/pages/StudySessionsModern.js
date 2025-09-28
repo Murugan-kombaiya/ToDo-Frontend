@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import '../styles/StudySessionsModern.css';
 
@@ -28,9 +28,36 @@ export default function StudySessionsModern() {
   const [isPaused, setIsPaused] = useState(false);
   const modalRef = useRef(null);
 
+  const fetchSessions = useCallback(async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token') || 'demo-token';
+      const response = await fetch(`http://localhost:3001/study-sessions?date=${filterDate}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const sessionsData = await response.json();
+        setSessions(Array.isArray(sessionsData) ? sessionsData : []);
+      } else {
+        console.error('Failed to fetch sessions:', response.status);
+        setSessions([]);
+      }
+    } catch (error) {
+      console.error('Error fetching sessions:', error);
+      toast.error('Failed to load study sessions');
+      setSessions([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [filterDate]);
+
   useEffect(() => {
     fetchSessions();
-  }, [filterDate]);
+  }, [fetchSessions]);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -70,32 +97,6 @@ export default function StudySessionsModern() {
     return () => clearInterval(interval);
   }, [activeTimer, isPaused]);
 
-  const fetchSessions = async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem('token') || 'demo-token';
-      const response = await fetch(`http://localhost:3001/study-sessions?date=${filterDate}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        const sessionsData = await response.json();
-        setSessions(Array.isArray(sessionsData) ? sessionsData : []);
-      } else {
-        console.error('Failed to fetch sessions:', response.status);
-        setSessions([]);
-      }
-    } catch (error) {
-      console.error('Error fetching sessions:', error);
-      toast.error('Failed to load study sessions');
-      setSessions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const openModal = (session = null) => {
     if (session) {
@@ -329,17 +330,6 @@ export default function StudySessionsModern() {
     }
   };
 
-  const formatTimeDisplay = (timeString) => {
-    try {
-      return new Date(`2000-01-01T${timeString}`).toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
-    } catch (error) {
-      return timeString;
-    }
-  };
 
   const getSubjectIcon = (subject) => {
     const subjectIcons = {

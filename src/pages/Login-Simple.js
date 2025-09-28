@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../App-simple.css';
 
 export default function Login() {
-  const [username, setUsername] = useState('demo');
-  const [password, setPassword] = useState('demo123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -129,9 +129,6 @@ export default function Login() {
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>
-          💡 Demo: username="demo", password="demo123"
-        </div>
 
         <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem', color: '#999' }}>
           🔍 Check browser console for detailed logs

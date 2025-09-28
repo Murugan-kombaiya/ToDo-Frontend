@@ -1,0 +1,336 @@
+/* ==========================================
+   CLEAN SIDEBAR DESIGN - TEXT ONLY DESKTOP
+   Modern minimalist sidebar without icons
+========================================== */
+
+/* Desktop Sidebar - Text Only Design */
+@media (min-width: 769px) {
+
+  /* Hide icons on desktop - High specificity to override Bootstrap Icons */
+  .sidebar .side-link i.mobile-only,
+  .sidebar .side-link i.mobile-only.bi,
+  .sidebar .side-link i[class*="bi-"].mobile-only,
+  .sidebar .side-link .bi.mobile-only,
+  .sidebar .side-link .mobile-only[class*="bi-"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Enhanced text-only sidebar styling */
+  .sidebar .side-link {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 0;
+    margin: 0;
+    border-left: 3px solid transparent;
+  }
+
+  /* Active state styling */
+  .sidebar .side-link.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-left: 3px solid #667eea;
+    color: #667eea;
+    font-weight: 600;
+    transform: translateX(2px);
+  }
+
+  /* Hover effects */
+  .sidebar .side-link:hover {
+    background: rgba(102, 126, 234, 0.05);
+    border-left: 3px solid rgba(102, 126, 234, 0.3);
+    transform: translateX(2px);
+    color: var(--text-primary);
+  }
+
+  /* Active link with hover */
+  .sidebar .side-link.active:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+    border-left: 3px solid #5a6fd8;
+  }
+
+  /* Typography enhancements */
+  .sidebar .side-link {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.4;
+  }
+
+  /* Sidebar groups styling */
+  .sidebar .sidebar-group {
+    padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    opacity: 0.7;
+    position: relative;
+  }
+
+  .sidebar .sidebar-group::after {
+    content: '';
+    position: absolute;
+    bottom: 0.25rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.2), transparent);
+  }
+
+  /* Enhanced sidebar brand */
+  .sidebar .sidebar-brand {
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    margin-bottom: 1rem;
+  }
+
+  .sidebar .brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+  }
+
+  /* Sidebar navigation container */
+  .sidebar .sidebar-nav {
+    padding: 0;
+  }
+
+  /* Focus states for accessibility */
+  .sidebar .side-link:focus {
+    outline: 2px solid #667eea;
+    outline-offset: -2px;
+    border-radius: 4px;
+  }
+
+  /* Enhanced sidebar container */
+  .sidebar.enhanced {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(102, 126, 234, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Dark theme adjustments */
+  [data-theme="dark"] .sidebar.enhanced {
+    background: rgba(20, 20, 30, 0.8);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme="dark"] .sidebar .side-link:hover {
+    background: rgba(102, 126, 234, 0.1);
+  }
+
+  [data-theme="dark"] .sidebar .side-link.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    color: #8b9eff;
+  }
+
+  [data-theme="dark"] .sidebar .sidebar-group::after {
+    background: linear-gradient(90deg, rgba(139, 158, 255, 0.2), transparent);
+  }
+
+  [data-theme="dark"] .sidebar .sidebar-brand {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Smooth animations */
+  .sidebar .side-link,
+  .sidebar .sidebar-group,
+  .sidebar .sidebar-brand {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Text spacing adjustments */
+  .sidebar .side-link {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* First and last item spacing */
+  .sidebar .sidebar-group:first-of-type {
+    margin-top: 0;
+    padding-top: 0.75rem;
+  }
+
+  .sidebar .side-link:last-child {
+    margin-bottom: 1rem;
+  }
+
+  /* Enhanced typography hierarchy */
+  .sidebar .side-link {
+    position: relative;
+  }
+
+  .sidebar .side-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: #667eea;
+    transform: translateY(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .sidebar .side-link:hover::before {
+    width: 3px;
+  }
+
+  .sidebar .side-link.active::before {
+    width: 3px;
+  }
+
+  /* Reduced spacing for cleaner look */
+  .sidebar .side-link + .side-link {
+    margin-top: 0;
+  }
+
+  .sidebar .sidebar-group + .side-link {
+    margin-top: 0;
+  }
+}
+
+/* Mobile - Keep icons visible */
+@media (max-width: 768px) {
+  .sidebar .side-link i.mobile-only,
+  .sidebar .side-link i.mobile-only.bi,
+  .sidebar .side-link i[class*="bi-"].mobile-only {
+    display: inline-block !important;
+    visibility: visible !important;
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  .sidebar .side-link {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar .sidebar-group {
+    padding: 1rem 1.25rem 0.5rem 1.25rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar .side-link {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .sidebar .sidebar-brand {
+    padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+  }
+
+  .sidebar .brand-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* Ultra-wide desktop adjustments */
+@media (min-width: 1440px) {
+  .sidebar .side-link {
+    padding: 1.1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .sidebar .sidebar-brand {
+    padding: 2.25rem 2rem 1.75rem 2rem;
+  }
+
+  .sidebar .brand-text {
+    font-size: 1.4rem;
+  }
+
+  .sidebar .sidebar-group {
+    padding: 1.5rem 2rem 1rem 2rem;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .sidebar .side-link {
+    border: 1px solid transparent;
+  }
+
+  .sidebar .side-link:hover,
+  .sidebar .side-link:focus {
+    border-color: currentColor;
+  }
+
+  .sidebar .side-link.active {
+    border-color: #667eea;
+    font-weight: 700;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar .side-link,
+  .sidebar .sidebar-group,
+  .sidebar .sidebar-brand {
+    transition: none;
+  }
+
+  .sidebar .side-link::before {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* CRITICAL: Final override for hiding desktop sidebar icons */
+@media screen and (min-width: 769px) {
+  aside.sidebar nav.sidebar-nav a.side-link i.mobile-only,
+  aside.sidebar nav.sidebar-nav .side-link i.mobile-only,
+  .sidebar .side-link i.mobile-only,
+  i.mobile-only.bi,
+  i[class*="bi-"].mobile-only,
+  .mobile-only.bi-speedometer2,
+  .mobile-only.bi-graph-up,
+  .mobile-only.bi-stopwatch,
+  .mobile-only.bi-kanban,
+  .mobile-only.bi-git,
+  .mobile-only.bi-clock,
+  .mobile-only.bi-calendar-check,
+  .mobile-only.bi-mortarboard,
+  .mobile-only.bi-journal-text,
+  .mobile-only.bi-clock-history,
+  .mobile-only.bi-target,
+  .mobile-only.bi-person-circle {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

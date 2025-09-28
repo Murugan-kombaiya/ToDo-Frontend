@@ -61,11 +61,6 @@ export default function Login() {
     }
   };
 
-  const handleDemoLogin = () => {
-    setUsername('murugan@symatic.com');
-    setPassword('Mukesh9944');
-    toast.info('Demo credentials filled! Click Login to continue.');
-  };
 
   return (
     <div className={`auth-container ${theme}`} data-theme={theme}>
@@ -179,16 +174,6 @@ export default function Login() {
               )}
             </button>
 
-            {/* Demo Login Button */}
-            <button
-              type="button"
-              onClick={handleDemoLogin}
-              className="auth-btn secondary"
-              disabled={loading}
-            >
-              <i className="bi bi-play-circle me-2"></i>
-              Try Demo Account
-            </button>
           </form>
 
           {/* Footer Links */}
