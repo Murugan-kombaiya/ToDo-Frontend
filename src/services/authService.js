@@ -1,7 +1,16 @@
 import { toast } from 'react-toastify';
 
-// Configuration - can be easily changed for different environments
-const API_BASE_URL = '';
+// Local backend configuration with fallback
+const getApiBaseUrl = () => {
+  // Production URL for mobile and web
+  if (window.Capacitor || process.env.NODE_ENV === 'production') {
+    return 'https://yamabiko.proxy.rlwy.net';
+  }
+  // For web browser development
+  return 'http://localhost:3001';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 const API_ENDPOINTS = {
   register: '/auth/register',
   login: '/auth/login',
@@ -16,6 +25,10 @@ const DEMO_CREDENTIALS = {
 
 // Generic API call function
 const apiCall = async (endpoint, method = 'GET', data = null, options = {}) => {
+  const fullUrl = `${API_BASE_URL}${endpoint}`;
+  console.log(`🌐 Making API call to: ${fullUrl}`);
+  console.log(`📝 Method: ${method}`, data ? `Data: ${JSON.stringify(data)}` : 'No data');
+
   const config = {
     method,
     headers: {
@@ -30,16 +43,34 @@ const apiCall = async (endpoint, method = 'GET', data = null, options = {}) => {
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+    console.log(`🚀 Sending request to ${fullUrl}...`);
+    const response = await fetch(fullUrl, config);
+    console.log(`📡 Response status: ${response.status} ${response.statusText}`);
+
     const result = await response.json();
+    console.log(`📦 Response data:`, result);
 
     if (!response.ok) {
-      throw new Error(result.error || `HTTP Error: ${response.status}`);
+      const errorMsg = result.error || `HTTP Error: ${response.status}`;
+      console.error(`❌ API Error: ${errorMsg}`);
+      throw new Error(errorMsg);
     }
 
+    console.log(`✅ API call successful`);
     return { success: true, data: result };
   } catch (error) {
-    console.error(`API Error (${endpoint}):`, error);
+    console.error(`🔥 API Error (${endpoint}):`, error);
+    console.error(`🔥 Error type:`, error.name);
+    console.error(`🔥 Error message:`, error.message);
+
+    // More specific error handling
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      return {
+        success: false,
+        error: `Network error: Cannot reach server at ${API_BASE_URL}. Please check if server is running and accessible.`
+      };
+    }
+
     return { success: false, error: error.message };
   }
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-toastify';
+import { authenticatedFetch } from '../utils/authUtils';
 import '../styles/AuthModern.css';
 
 export default function Login() {
@@ -33,9 +34,8 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch('/auth/login', {
+      const response = await authenticatedFetch('/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username.trim(), password })
       });
 

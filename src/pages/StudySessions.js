@@ -44,7 +44,7 @@ function StudySessions() {
   const fetchSessions = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3001/study-sessions?date=${filterDate}`, {
+      const response = await fetch(`http://192.168.1.2:3001/study-sessions?date=${filterDate}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ function StudySessions() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/study-sessions/${sessionId}`, {
+      const response = await fetch(`http://192.168.1.2:3001/study-sessions/${sessionId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -220,7 +220,7 @@ function StudySessions() {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/study-sessions', {
+      const response = await fetch('http://192.168.1.2:3001/study-sessions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -262,8 +262,8 @@ function StudySessions() {
 
     try {
       const url = editingSession
-        ? `http://localhost:3001/study-sessions/${editingSession.id}`
-        : 'http://localhost:3001/study-sessions';
+        ? `http://192.168.1.2:3001/study-sessions/${editingSession.id}`
+        : 'http://192.168.1.2:3001/study-sessions';
       const method = editingSession ? 'PUT' : 'POST';
 
       const response = await fetch(url, {

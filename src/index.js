@@ -8,17 +8,17 @@ import './styles/enhancements.css';
 import './styles/auth.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import GlobalLoaderProvider from './components/GlobalLoader.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <GlobalLoaderProvider minDurationMs={1000}>
         <App />
       </GlobalLoaderProvider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 

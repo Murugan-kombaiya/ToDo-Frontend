@@ -22,14 +22,31 @@ export function authHeaders() {
 
 // Enhanced fetch wrapper that handles authentication errors
 export async function authenticatedFetch(url, options = {}) {
+  // Import API configuration
+  const getApiBaseUrl = () => {
+    // Production URL for mobile and web
+    if (window.Capacitor || process.env.NODE_ENV === 'production') {
+      return 'https://yamabiko.proxy.rlwy.net';
+    }
+    if (process.env.REACT_APP_BACKEND_URL) {
+      return process.env.REACT_APP_BACKEND_URL;
+    }
+    return 'http://localhost:3001';
+  };
+
+  // Create full URL if it's a relative path
+  const fullUrl = url.startsWith('http') ? url : `${getApiBaseUrl()}${url}`;
+
   const headers = {
     'Content-Type': 'application/json',
     ...authHeaders(),
     ...options.headers
   };
 
+  console.log(`Authenticated API Call: ${options.method || 'GET'} ${fullUrl}`);
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(fullUrl, {
       ...options,
       headers
     });

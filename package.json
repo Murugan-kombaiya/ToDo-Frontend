@@ -24,6 +24,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test --watchAll",
@@ -32,7 +34,8 @@
     "test:ci": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001",
+  "homepage": "./",
+  "proxy": "http://192.168.1.2:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -50,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

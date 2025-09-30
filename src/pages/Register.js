@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-toastify';
+import { authenticatedFetch } from '../utils/authUtils';
 import '../styles/AuthModern.css';
 
 export default function Register() {
@@ -95,7 +96,7 @@ export default function Register() {
 
     try {
       console.log('🔍 Attempting registration for:', formData.username);
-      const response = await fetch('/auth/register', {
+      const response = await authenticatedFetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

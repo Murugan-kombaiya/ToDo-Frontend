@@ -32,7 +32,7 @@ export default function StudySessionsModern() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token') || 'demo-token';
-      const response = await fetch(`http://localhost:3001/study-sessions?date=${filterDate}`, {
+      const response = await fetch(`http://10.0.2.2:3001/study-sessions?date=${filterDate}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -194,8 +194,8 @@ export default function StudySessionsModern() {
     try {
       const token = localStorage.getItem('token') || 'demo-token';
       const url = editingSession
-        ? `http://localhost:3001/study-sessions/${editingSession.id}`
-        : 'http://localhost:3001/study-sessions';
+        ? `http://10.0.2.2:3001/study-sessions/${editingSession.id}`
+        : 'http://10.0.2.2:3001/study-sessions';
       const method = editingSession ? 'PUT' : 'POST';
 
       // Combine date and time into start_time timestamp
@@ -254,7 +254,7 @@ export default function StudySessionsModern() {
 
     try {
       const token = localStorage.getItem('token') || 'demo-token';
-      const response = await fetch(`http://localhost:3001/study-sessions/${sessionId}`, {
+      const response = await fetch(`http://10.0.2.2:3001/study-sessions/${sessionId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
+import { authenticatedFetch } from '../utils/authUtils';
 import '../styles/NotesModernV3.css';
 
 export default function Notes() {
@@ -50,12 +51,7 @@ export default function Notes() {
         return;
       }
 
-      const response = await fetch('http://localhost:3001/notes', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await authenticatedFetch('/notes');
 
       if (response.ok) {
         const allNotes = await response.json();
@@ -117,8 +113,8 @@ export default function Notes() {
       }
 
       const url = editingNote
-        ? `http://localhost:3001/notes/${editingNote.id}`
-        : 'http://localhost:3001/notes';
+        ? `/notes/${editingNote.id}`
+        : '/notes';
       const method = editingNote ? 'PUT' : 'POST';
 
       // Map activeTab to type as expected by backend
@@ -132,12 +128,8 @@ export default function Notes() {
         attachments: attachmentPreviews || []
       };
 
-      const response = await fetch(url, {
+      const response = await authenticatedFetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
         body: JSON.stringify(body)
       });
 
@@ -169,12 +161,8 @@ export default function Notes() {
         return;
       }
 
-      const response = await fetch(`http://localhost:3001/notes/${noteId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+      const response = await authenticatedFetch(`/notes/${noteId}`, {
+        method: 'DELETE'
       });
 
       if (response.ok) {

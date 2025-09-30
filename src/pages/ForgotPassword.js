@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { toast } from 'react-toastify';
+import { authenticatedFetch } from '../utils/authUtils';
 import '../styles/AuthModern.css';
 
 export default function ForgotPassword() {
@@ -37,7 +38,7 @@ export default function ForgotPassword() {
     setError('');
 
     try {
-      const response = await fetch('/auth/reset-password', {
+      const response = await authenticatedFetch('/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

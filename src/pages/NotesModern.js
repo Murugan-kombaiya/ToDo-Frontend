@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
+import { authenticatedFetch } from '../utils/authUtils';
 import '../styles/NotesModern.css';
 
 export default function NotesModern() {
@@ -49,12 +50,7 @@ export default function NotesModern() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token') || 'demo-token';
-      const response = await fetch('http://localhost:3001/notes', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await authenticatedFetch('/notes');
 
       if (response.ok) {
         const notesData = await response.json();
@@ -125,8 +121,8 @@ export default function NotesModern() {
     try {
       const token = localStorage.getItem('token') || 'demo-token';
       const url = editingNote
-        ? `http://localhost:3001/notes/${editingNote.id}`
-        : 'http://localhost:3001/notes';
+        ? `http://10.0.2.2:3001/notes/${editingNote.id}`
+        : 'http://10.0.2.2:3001/notes';
       const method = editingNote ? 'PUT' : 'POST';
 
       const noteData = {
@@ -137,12 +133,8 @@ export default function NotesModern() {
         attachments: attachmentPreviews
       };
 
-      const response = await fetch(url, {
+      const response = await authenticatedFetch(url, {
         method,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(noteData)
       });
 
@@ -169,12 +161,8 @@ export default function NotesModern() {
 
     try {
       const token = localStorage.getItem('token') || 'demo-token';
-      const response = await fetch(`http://localhost:3001/notes/${noteId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+      const response = await authenticatedFetch(`/notes/${noteId}`, {
+        method: 'DELETE'
       });
 
       if (response.ok) {
